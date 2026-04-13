@@ -1,4 +1,4 @@
-import { For, createEffect, createSignal, onCleanup } from 'solid-js';
+import { For, Show, createEffect, createSignal, onCleanup } from 'solid-js';
 
 /** Локальные id категорий — совпадают с ключами подписей из i18n */
 export type CategoryId = 'frontend' | 'backend' | 'uiux' | 'testing' | 'ai' | 'devops';
@@ -269,6 +269,7 @@ export default function SkillsShowcase(props: {
 	stackLabel: string;
 }) {
 	const [activeCategory, setActiveCategory] = createSignal<CategoryId | null>(null);
+	const [isMobile, setIsMobile] = createSignal(false);
 	let rootRef: HTMLDivElement | undefined;
 
 	const isExpanded = (id: CategoryId) => activeCategory() === id;
@@ -292,6 +293,16 @@ export default function SkillsShowcase(props: {
 			window.removeEventListener('keydown', onKey);
 			document.removeEventListener('pointerdown', onPointerDown, true);
 		});
+	});
+
+	createEffect(() => {
+		if (typeof window === 'undefined') return;
+		const mq = window.matchMedia('(max-width: 767px)');
+		const sync = () => setIsMobile(mq.matches);
+		sync();
+		const onChange = () => sync();
+		mq.addEventListener('change', onChange);
+		onCleanup(() => mq.removeEventListener('change', onChange));
 	});
 
 	const cardBase =
@@ -337,59 +348,112 @@ export default function SkillsShowcase(props: {
 							</div>
 						</button>
 
-						<div class="pointer-events-none absolute inset-0 z-[25] overflow-visible">
-							<div
-								class="absolute left-1/2 top-[calc(50%+2.95rem)] w-[min(34rem,calc(100vw-2.5rem))] -translate-x-1/2 rounded-2xl border border-[#0071e3]/25 bg-white p-5 shadow-[0_0_0_1px_rgba(0,113,227,0.15),0_24px_64px_-24px_rgba(0,113,227,0.35)] backdrop-blur-xl transition-all duration-500 ease-in-out dark:border-[#2997ff]/35 dark:bg-neutral-900 dark:shadow-[0_0_0_1px_rgba(41,151,255,0.2),0_28px_72px_-24px_rgba(0,0,0,0.8)] md:p-6"
-								classList={{
-									'pointer-events-auto opacity-100 translate-y-0 scale-100': isExpanded(id),
-									'pointer-events-none invisible opacity-0 translate-y-2 scale-[0.985]': !isExpanded(id),
-								}}
-								id={`skills-hub-panel-${id}`}
-								role="region"
-								aria-label={props.labels[id]}
-								aria-hidden={!isExpanded(id)}
-							>
-								<div class="flex flex-col gap-5">
-									<div class="flex items-start justify-between gap-4">
-										<div class="flex items-center gap-3">
-											<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-neutral-100/90 dark:bg-white/10">
-												<CategoryGlyph id={id} />
-											</div>
-											<div>
-												<p class="text-[11px] font-medium uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
-													{props.stackLabel}
-												</p>
-												<h3 class="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-neutral-50 md:text-lg">
-													{props.labels[id]}
-												</h3>
+						<Show when={isExpanded(id)}>
+							<Show
+								when={isMobile()}
+								fallback={
+									<div class="pointer-events-none absolute inset-0 z-[25] overflow-visible">
+										<div
+											class="pointer-events-auto absolute left-1/2 top-[calc(50%+2.95rem)] w-[min(34rem,calc(100vw-2.5rem))] -translate-x-1/2 rounded-2xl border border-[#0071e3]/25 bg-white p-5 shadow-[0_0_0_1px_rgba(0,113,227,0.15),0_24px_64px_-24px_rgba(0,113,227,0.35)] backdrop-blur-xl transition-all duration-500 ease-in-out dark:border-[#2997ff]/35 dark:bg-neutral-900 dark:shadow-[0_0_0_1px_rgba(41,151,255,0.2),0_28px_72px_-24px_rgba(0,0,0,0.8)] md:p-6"
+											id={`skills-hub-panel-${id}`}
+											role="region"
+											aria-label={props.labels[id]}
+										>
+											<div class="flex flex-col gap-5">
+												<div class="flex items-start justify-between gap-4">
+													<div class="flex items-center gap-3">
+														<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-neutral-100/90 dark:bg-white/10">
+															<CategoryGlyph id={id} />
+														</div>
+														<div>
+															<p class="text-[11px] font-medium uppercase tracking-[0.12em] text-neutral-500 dark:text-neutral-400">
+																{props.stackLabel}
+															</p>
+															<h3 class="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-neutral-50 md:text-lg">
+																{props.labels[id]}
+															</h3>
+														</div>
+													</div>
+													<button
+														type="button"
+														class="inline-flex shrink-0 items-center justify-center rounded-full border border-black/10 bg-white/90 px-3 py-1.5 text-[12px] font-medium text-neutral-700 shadow-sm transition-[box-shadow] duration-300 hover:shadow-md dark:border-white/15 dark:bg-white/10 dark:text-neutral-200 dark:hover:shadow-black/50"
+														aria-label={props.closeLabel}
+														onClick={() => setActiveCategory(null)}
+													>
+														{props.closeLabel}
+													</button>
+												</div>
+												<ul class="grid grid-cols-1 gap-2.5 sm:grid-cols-2" role="list">
+													<For each={SKILL_HUB_DATA[id].items}>
+														{(item) => (
+															<li>
+																<div class="flex items-center gap-3 rounded-xl border border-black/5 bg-white px-3 py-2.5 dark:border-white/10 dark:bg-neutral-800">
+																	<TechIcon techKey={item.key} />
+																	<span class="text-[13px] font-medium leading-snug text-neutral-800 dark:text-neutral-200">
+																		{item.label}
+																	</span>
+																</div>
+															</li>
+														)}
+													</For>
+												</ul>
 											</div>
 										</div>
-										<button
-											type="button"
-											class="inline-flex shrink-0 items-center justify-center rounded-full border border-black/10 bg-white/90 px-3 py-1.5 text-[12px] font-medium text-neutral-700 shadow-sm transition-[box-shadow] duration-300 hover:shadow-md dark:border-white/15 dark:bg-white/10 dark:text-neutral-200 dark:hover:shadow-black/50"
-											aria-label={props.closeLabel}
-											onClick={() => setActiveCategory(null)}
-										>
-											{props.closeLabel}
-										</button>
 									</div>
-									<ul class="grid grid-cols-1 gap-2.5 sm:grid-cols-2" role="list">
-										<For each={SKILL_HUB_DATA[id].items}>
-											{(item) => (
-												<li>
-													<div class="flex items-center gap-3 rounded-xl border border-black/5 bg-white px-3 py-2.5 dark:border-white/10 dark:bg-neutral-800">
-														<TechIcon techKey={item.key} />
-														<span class="text-[13px] font-medium leading-snug text-neutral-800 dark:text-neutral-200">
-															{item.label}
-														</span>
+								}
+							>
+								<div class="fixed inset-x-0 bottom-24 top-[7.25rem] z-[80] flex items-stretch justify-center px-3 pb-3">
+									<button
+										type="button"
+										class="absolute inset-0 bg-black/45 backdrop-blur-[1px]"
+										aria-label={props.closeLabel}
+										onClick={() => setActiveCategory(null)}
+									/>
+									<div
+										class="relative z-[1] max-h-full w-full max-w-sm overflow-auto rounded-2xl border border-[#0071e3]/25 bg-white p-4 shadow-[0_0_0_1px_rgba(0,113,227,0.15),0_28px_72px_-24px_rgba(0,113,227,0.35)] transition-all duration-500 ease-in-out dark:border-[#2997ff]/35 dark:bg-neutral-900 dark:shadow-[0_0_0_1px_rgba(41,151,255,0.2),0_28px_72px_-20px_rgba(0,0,0,0.82)]"
+										id={`skills-hub-panel-${id}`}
+										role="dialog"
+										aria-modal="true"
+										aria-label={props.labels[id]}
+									>
+										<div class="flex flex-col gap-4">
+											<div class="flex items-start justify-between gap-3">
+												<div class="flex items-center gap-3">
+													<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-neutral-100/90 dark:bg-white/10">
+														<CategoryGlyph id={id} />
 													</div>
-												</li>
-											)}
-										</For>
-									</ul>
+													<h3 class="text-base font-semibold tracking-[-0.02em] text-neutral-950 dark:text-neutral-50">
+														{props.labels[id]}
+													</h3>
+												</div>
+												<button
+													type="button"
+													class="inline-flex shrink-0 items-center justify-center rounded-full border border-black/10 bg-white/90 px-3 py-1.5 text-[12px] font-medium text-neutral-700 shadow-sm transition-[box-shadow] duration-300 hover:shadow-md dark:border-white/15 dark:bg-white/10 dark:text-neutral-200 dark:hover:shadow-black/50"
+													aria-label={props.closeLabel}
+													onClick={() => setActiveCategory(null)}
+												>
+													{props.closeLabel}
+												</button>
+											</div>
+											<ul class="space-y-2.5 pr-1" role="list">
+												<For each={SKILL_HUB_DATA[id].items}>
+													{(item) => (
+														<li>
+															<div class="flex items-center gap-3 rounded-xl border border-black/5 bg-white px-3 py-2.5 dark:border-white/10 dark:bg-neutral-800">
+																<TechIcon techKey={item.key} />
+																<span class="text-[13px] font-medium leading-snug text-neutral-800 dark:text-neutral-200">
+																	{item.label}
+																</span>
+															</div>
+														</li>
+													)}
+												</For>
+											</ul>
+										</div>
+									</div>
 								</div>
-							</div>
-						</div>
+							</Show>
+						</Show>
 					</div>
 				)}
 			</For>
