@@ -1,0 +1,87 @@
+---
+import ContactForm from '../ContactForm';
+
+interface Props {
+	title: string;
+	lead: string;
+	formLabels: {
+		name: string;
+		email: string;
+		message: string;
+		send: string;
+		sending: string;
+		sent: string;
+		error: string;
+		missingKey: string;
+		namePlaceholder: string;
+		emailPlaceholder: string;
+		serviceType: string;
+		budget: string;
+		budgetPlaceholder: string;
+		budgetUnder1k: string;
+		budget1to5k: string;
+		budget5kPlus: string;
+		timeline: string;
+		timelinePlaceholder: string;
+		messagePlaceholder: string;
+		privacyNote: string;
+	};
+	serviceOptions: { id: string; label: string }[];
+	subject: string;
+	telegramLabel: string;
+	emailLabel: string;
+	telegramHref: string;
+	emailHref: string;
+}
+
+const {
+	title,
+	lead,
+	formLabels,
+	serviceOptions,
+	subject,
+	telegramLabel,
+	emailLabel,
+	telegramHref,
+	emailHref,
+} = Astro.props;
+---
+
+<section
+	id="contact"
+	class="scroll-mt-24 border-t border-black/5 py-24 dark:border-white/10 md:py-28"
+>
+	<div class="mx-auto max-w-6xl px-6">
+		<h2
+			class="text-balance text-[clamp(2.125rem,4.5vw,3.25rem)] font-semibold leading-[1.07] tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]"
+		>
+			{title}
+		</h2>
+		<p class="mt-8 max-w-2xl text-pretty text-[21px] font-normal leading-[1.5] tracking-[-0.015em] text-neutral-600 md:text-[24px] md:leading-[1.4584] dark:text-neutral-400">
+			{lead}
+		</p>
+		<div
+			class="mt-10 max-w-2xl rounded-3xl border border-black/5 bg-white/80 p-8 shadow-sm backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]"
+		>
+			<ContactForm client:visible labels={formLabels} serviceOptions={serviceOptions} subject={subject} />
+		</div>
+		<div class="mt-10 flex flex-wrap gap-8 text-[17px] font-normal">
+			<a
+				href={telegramHref}
+				class="inline-flex items-center gap-2 text-[#0071e3] transition-[opacity,transform] duration-200 hover:opacity-80 dark:text-[#2997ff]"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				<span class="inline-block h-1.5 w-1.5 rounded-full bg-[#0071e3] dark:bg-[#2997ff]"></span>
+				{telegramLabel}
+			</a>
+			<a
+				href={emailHref}
+				class="inline-flex items-center gap-2 text-[#0071e3] transition-opacity duration-200 hover:opacity-80 dark:text-[#2997ff]"
+			>
+				<span class="inline-block h-1.5 w-1.5 rounded-full bg-[#0071e3] dark:bg-[#2997ff]"></span>
+				{emailLabel}
+			</a>
+		</div>
+	</div>
+</section>

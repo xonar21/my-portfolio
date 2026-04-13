@@ -1,0 +1,43 @@
+---
+import ProjectCarousel from '../ProjectCarousel';
+import type { ProjectCard } from '../../i18n/dictionary';
+
+interface Props {
+	title: string;
+	items: readonly ProjectCard[];
+	carouselPrev: string;
+	carouselNext: string;
+	carouselLabel: string;
+	projectLinkLabel: string;
+	slidePrevLabel: string;
+	slideNextLabel: string;
+}
+
+const { title, items, carouselPrev, carouselNext, carouselLabel, projectLinkLabel, slidePrevLabel, slideNextLabel } =
+	Astro.props;
+---
+
+<section
+	id="projects"
+	class="relative z-0 scroll-mt-24 border-t border-black/5 py-24 dark:border-white/10 md:py-28"
+>
+	<div class="mx-auto max-w-6xl px-6">
+		<h2
+			class="text-balance text-[clamp(2.125rem,4.5vw,3.25rem)] font-semibold leading-[1.07] tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]"
+		>
+			{title}
+		</h2>
+		<ProjectCarousel
+			client:visible
+			items={[...items]}
+			labels={{
+				prev: carouselPrev,
+				next: carouselNext,
+				region: carouselLabel,
+				openProject: projectLinkLabel,
+				prevImage: slidePrevLabel,
+				nextImage: slideNextLabel,
+			}}
+		/>
+	</div>
+</section>

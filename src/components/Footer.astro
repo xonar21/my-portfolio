@@ -1,0 +1,15 @@
+---
+interface Props {
+	note: string;
+}
+
+const { note } = Astro.props;
+---
+
+<footer class="border-t border-black/5 py-14 dark:border-white/10">
+	<div class="mx-auto max-w-6xl px-6">
+		<p class="text-center text-[14px] font-normal leading-relaxed text-neutral-500 dark:text-neutral-500">
+			{note}
+		</p>
+	</div>
+</footer>

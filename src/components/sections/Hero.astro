@@ -1,0 +1,87 @@
+---
+interface Props {
+  kicker: string;
+  headline: string;
+  subline: string;
+  photoAlt: string;
+  ctaProjects: string;
+  ctaContact: string;
+}
+
+const { kicker, headline, subline, photoAlt, ctaProjects, ctaContact } =
+  Astro.props;
+---
+
+<section class="relative overflow-hidden" aria-labelledby="hero-heading">
+  <div
+    class="hero-mesh pointer-events-none absolute inset-0 overflow-hidden"
+    aria-hidden="true"
+  >
+    <div class="hero-mesh__drift hero-mesh__drift--a">
+      <div class="hero-mesh__canvas">
+        <div class="hero-mesh__cell hero-mesh__cell--1"></div>
+        <div class="hero-mesh__cell hero-mesh__cell--2"></div>
+        <div class="hero-mesh__cell hero-mesh__cell--3"></div>
+        <div class="hero-mesh__cell hero-mesh__cell--4"></div>
+      </div>
+    </div>
+  </div>
+  <div
+    class="relative mx-auto max-w-6xl px-6 pb-[calc(6rem+15px)] pt-[calc(7rem+15px)] md:pb-[calc(9rem+15px)] md:pt-[calc(10rem+15px)]"
+  >
+    <div class="flex flex-col gap-14 lg:flex-row lg:items-center lg:gap-20">
+      <div class="min-w-0 flex-1">
+        <p
+          class="mb-4 inline-flex rounded-full bg-white/70 px-3 py-1 text-[12px] font-medium uppercase tracking-[0.14em] text-neutral-500 shadow-sm backdrop-blur-md dark:bg-white/10 dark:text-neutral-400"
+        >
+          {kicker}
+        </p>
+        <h1
+          id="hero-heading"
+          class="text-balance text-[clamp(1.75rem,4vw,2.75rem)] font-semibold leading-tight tracking-tight text-neutral-950 dark:text-neutral-100"
+        >
+          {headline}
+        </h1>
+        <p
+          class="mt-5 max-w-xl text-pretty text-[17px] leading-relaxed text-neutral-600 dark:text-neutral-400"
+        >
+          {subline}
+        </p>
+        <div class="mt-10 flex flex-wrap gap-4">
+          <a
+            href="#projects"
+            class="inline-flex items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-[15px] font-medium text-white shadow-md shadow-[#0071e3]/22 transition-[background-color,box-shadow] duration-300 ease-out hover:bg-[#0077ed] hover:shadow-lg hover:shadow-[#0071e3]/18 dark:bg-[#2997ff] dark:shadow-[#2997ff]/18 dark:hover:bg-[#42a4ff] dark:hover:shadow-lg dark:hover:shadow-[#2997ff]/22"
+          >
+            {ctaProjects}
+          </a>
+          <a
+            href="#contact"
+            class="inline-flex items-center justify-center rounded-full border border-black/10 bg-white/80 px-7 py-3 text-[15px] font-medium text-neutral-900 backdrop-blur-md transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-lg hover:shadow-black/[0.08] dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15 dark:hover:shadow-black/50"
+          >
+            {ctaContact}
+          </a>
+        </div>
+      </div>
+      <div
+        class="mx-auto w-full max-w-[260px] shrink-0 lg:mx-0 lg:max-w-[280px]"
+      >
+        <div
+          class="hero-photo relative aspect-square w-full overflow-hidden rounded-3xl bg-gradient-to-br from-white to-neutral-100 shadow-[0_24px_80px_-12px_rgba(0,0,0,0.18)] ring-1 ring-black/5 dark:from-neutral-900 dark:to-neutral-950 dark:shadow-black/50 dark:ring-white/10"
+          role="img"
+          aria-label={photoAlt}
+        >
+          <div
+            class="absolute inset-0 bg-gradient-to-tr from-[#0071e3]/5 via-transparent to-fuchsia-500/10"
+            aria-hidden="true"
+          >
+          </div>
+          <div
+            class="relative flex h-full items-center justify-center px-4 text-center text-[12px] leading-snug text-neutral-500 dark:text-neutral-500"
+          >
+            {photoAlt}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

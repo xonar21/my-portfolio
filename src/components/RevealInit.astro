@@ -1,0 +1,36 @@
+---
+/* Одноразовая инициализация появления блоков + повтор при View Transitions */
+---
+
+<script is:inline>
+	(function () {
+		function reducedMotion() {
+			return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+		}
+		function bind(el) {
+			if (el.dataset.revealBound) return;
+			el.dataset.revealBound = '1';
+			if (reducedMotion()) {
+				el.classList.add('reveal-ov--in');
+				return;
+			}
+			var io = new IntersectionObserver(
+				function (entries) {
+					entries.forEach(function (e) {
+						if (e.isIntersecting) {
+							e.target.classList.add('reveal-ov--in');
+							io.unobserve(e.target);
+						}
+					});
+				},
+				{ threshold: 0.08, rootMargin: '0px 0px -8% 0px' },
+			);
+			io.observe(el);
+		}
+		function setup() {
+			document.querySelectorAll('.reveal-ov').forEach(bind);
+		}
+		setup();
+		document.addEventListener('astro:page-load', setup);
+	})();
+</script>

@@ -1,0 +1,92 @@
+---
+/**
+ * SEO layer (explicit structure for audits):
+ * 1) Unique <title> + meta description per route
+ * 2) Canonical + hreflang for locale copies
+ * 3) Open Graph / Twitter parity
+ * 4) JSON-LD (Person + WebSite) aligned with visible content
+ */
+import type { Locale } from '../i18n/dictionary';
+
+interface Props {
+	title: string;
+	description: string;
+	locale: Locale;
+	/** Path after locale, e.g. "/" for home, "/blog/" for nested routes */
+	path: string;
+	personName: string;
+	personJobTitle: string;
+	knowsAbout: string[];
+	ogImage?: string;
+}
+
+const {
+	title,
+	description,
+	locale,
+	path,
+	personName,
+	personJobTitle,
+	knowsAbout,
+	ogImage,
+} = Astro.props;
+
+const siteRaw = import.meta.env.PUBLIC_SITE_URL;
+const site = (typeof siteRaw === 'string' ? siteRaw : '').replace(/\/$/, '') || null;
+const fallbackSite = import.meta.env.DEV ? 'http://localhost:4321' : 'https://example.com';
+const origin = site ?? fallbackSite;
+
+const pathSuffix = path === '/' ? '/' : path.startsWith('/') ? path : `/${path}`;
+const canonical = `${origin}/${locale}${pathSuffix}`;
+const urlEn = `${origin}/en/`;
+const urlRu = `${origin}/ru/`;
+
+const ogLocale = locale === 'ru' ? 'ru_RU' : 'en_US';
+const ogImageUrl =
+	ogImage && (ogImage.startsWith('http://') || ogImage.startsWith('https://'))
+		? ogImage
+		: ogImage
+			? `${origin}${ogImage.startsWith('/') ? ogImage : `/${ogImage}`}`
+			: null;
+
+const schema = {
+	'@context': 'https://schema.org',
+	'@graph': [
+		{
+			'@type': 'WebSite',
+			'@id': `${origin}/#website`,
+			url: `${origin}/`,
+			name: personName,
+			inLanguage: ['en', 'ru'],
+		},
+		{
+			'@type': 'Person',
+			'@id': `${canonical}#person`,
+			name: personName,
+			jobTitle: personJobTitle,
+			url: canonical,
+			knowsAbout,
+			sameAs: [],
+		},
+	],
+};
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<link rel="alternate" hreflang="en" href={urlEn} />
+<link rel="alternate" hreflang="ru" href={urlRu} />
+<link rel="alternate" hreflang="x-default" href={urlEn} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:site_name" content={personName} />
+{ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
+<meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

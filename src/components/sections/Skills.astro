@@ -1,0 +1,44 @@
+---
+import SkillsShowcase from '../SkillsShowcase';
+
+interface Props {
+	title: string;
+	hub: {
+		frontend: string;
+		backend: string;
+		uiux: string;
+		testing: string;
+		ai: string;
+		devops: string;
+	};
+	hubClose: string;
+	hubHint: string;
+	hubStackLabel: string;
+}
+
+const { title, hub, hubClose, hubHint, hubStackLabel } = Astro.props;
+---
+
+<section
+	id="skills"
+	class="relative z-30 scroll-mt-24 border-t border-black/5 py-24 dark:border-white/10 md:py-28"
+>
+	<div class="mx-auto max-w-6xl px-6">
+		<h2
+			class="text-balance text-[clamp(2.125rem,4.5vw,3.25rem)] font-semibold leading-[1.07] tracking-[-0.028em] text-[#1d1d1f] dark:text-[#f5f5f7]"
+		>
+			{title}
+		</h2>
+		<p
+			class="mt-3 max-w-2xl text-[15px] leading-relaxed text-neutral-500 dark:text-neutral-400"
+		>
+			{hubHint}
+		</p>
+		<SkillsShowcase
+			client:visible
+			labels={hub}
+			closeLabel={hubClose}
+			stackLabel={hubStackLabel}
+		/>
+	</div>
+</section>

@@ -1,0 +1,143 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.tsx';
+import Footer from '../components/Footer.astro';
+import ChatWidget from '../components/ChatWidget.tsx';
+import RevealOnView from '../components/RevealOnView.astro';
+import RevealInit from '../components/RevealInit.astro';
+import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Skills from '../components/sections/Skills.astro';
+import Projects from '../components/sections/Projects.astro';
+import Contact from '../components/sections/Contact.astro';
+import { contactLinks, getMessages, type Locale } from '../i18n/dictionary';
+
+interface Props {
+	locale: Locale;
+}
+
+const { locale } = Astro.props;
+const m = getMessages(locale);
+const alternateHref = locale === 'en' ? '/ru/' : '/en/';
+---
+
+<BaseLayout lang={locale}>
+	<SEO
+		slot="head"
+		title={m.seo.pageTitle}
+		description={m.seo.pageDescription}
+		locale={locale}
+		path="/"
+		personName={m.seo.personName}
+		personJobTitle={m.seo.personJobTitle}
+		knowsAbout={[...m.seo.knowsAbout]}
+	/>
+	<RevealInit />
+	<Header
+		client:load
+		locale={locale}
+		alternateHref={alternateHref}
+		labels={{
+			about: m.nav.about,
+			skills: m.nav.skills,
+			projects: m.nav.projects,
+			contact: m.nav.contact,
+			theme: m.nav.theme,
+			themeLight: m.nav.themeLight,
+			themeDark: m.nav.themeDark,
+			themeSystem: m.nav.themeSystem,
+			language: m.nav.language,
+		}}
+	/>
+	<main id="main" transition:animate="fade">
+		<RevealOnView>
+			<Hero
+				kicker={m.hero.kicker}
+				headline={m.hero.headline}
+				subline={m.hero.subline}
+				photoAlt={m.hero.photoAlt}
+				ctaProjects={m.hero.ctaProjects}
+				ctaContact={m.hero.ctaContact}
+			/>
+		</RevealOnView>
+		<RevealOnView>
+			<About title={m.about.title} body={m.about.body} />
+		</RevealOnView>
+		<RevealOnView>
+			<Skills
+				title={m.skills.title}
+				hub={m.skills.hub}
+				hubClose={m.skills.hubClose}
+				hubHint={m.skills.hubHint}
+				hubStackLabel={m.skills.hubStackLabel}
+			/>
+		</RevealOnView>
+		<RevealOnView>
+			<Projects
+				title={m.projects.title}
+				items={m.projects.items}
+				carouselPrev={m.projects.carouselPrev}
+				carouselNext={m.projects.carouselNext}
+				carouselLabel={m.projects.carouselLabel}
+				projectLinkLabel={m.projects.projectLinkLabel}
+				slidePrevLabel={m.projects.slidePrevLabel}
+				slideNextLabel={m.projects.slideNextLabel}
+			/>
+		</RevealOnView>
+		<RevealOnView>
+			<Contact
+				title={m.contact.title}
+				lead={m.contact.lead}
+				formLabels={{
+					name: m.contact.name,
+					email: m.contact.email,
+					message: m.contact.message,
+					send: m.contact.send,
+					sending: m.contact.sending,
+					sent: m.contact.sent,
+					error: m.contact.error,
+					missingKey: m.contact.missingKey,
+					namePlaceholder: m.contact.namePlaceholder,
+					emailPlaceholder: m.contact.emailPlaceholder,
+					serviceType: m.contact.serviceType,
+					budget: m.contact.budget,
+					budgetPlaceholder: m.contact.budgetPlaceholder,
+					budgetUnder1k: m.contact.budgetUnder1k,
+					budget1to5k: m.contact.budget1to5k,
+					budget5kPlus: m.contact.budget5kPlus,
+					timeline: m.contact.timeline,
+					timelinePlaceholder: m.contact.timelinePlaceholder,
+					messagePlaceholder: m.contact.messagePlaceholder,
+					privacyNote: m.contact.privacyNote,
+				}}
+				serviceOptions={[
+					{ id: 'frontend', label: m.skills.hub.frontend },
+					{ id: 'backend', label: m.skills.hub.backend },
+					{ id: 'uiux', label: m.skills.hub.uiux },
+					{ id: 'testing', label: m.skills.hub.testing },
+					{ id: 'ai', label: m.skills.hub.ai },
+					{ id: 'devops', label: m.skills.hub.devops },
+				]}
+				subject={m.contact.formSubject}
+				telegramLabel={m.contact.altTelegram}
+				emailLabel={m.contact.altEmail}
+				telegramHref={contactLinks.telegram}
+				emailHref={contactLinks.email}
+			/>
+		</RevealOnView>
+	</main>
+	<Footer note={m.footer.note} />
+	<ChatWidget
+		client:load
+		labels={{
+			open: m.chat.open,
+			close: m.chat.close,
+			title: m.chat.title,
+			placeholder: m.chat.placeholder,
+			send: m.chat.send,
+			empty: m.chat.empty,
+			error: m.chat.error,
+		}}
+	/>
+</BaseLayout>

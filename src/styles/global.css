@@ -1,0 +1,495 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Как на apple.com: системный San Francisco на Apple, Segoe UI на Windows */
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Display",
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --color-apple-surface: #f5f5f7;
+  --color-apple-blue: #0071e3;
+  --color-apple-blue-hover: #0077ed;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  .dark {
+    color-scheme: dark;
+  }
+
+  html {
+    @apply h-full scroll-smooth;
+  }
+
+  body {
+    @apply bg-[#f5f5f7] font-sans text-neutral-950 antialiased transition-[background-color,color] duration-200 ease-out dark:bg-[#000000] dark:text-neutral-100;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-[#0071e3] dark:outline-[#2997ff];
+  }
+}
+
+/*
+ * Hero: четыре отдельных радиальных градиента в разных зонах блока; один общий blur на .hero-mesh__canvas
+ * даёт единое мягкое полотно. У каждой ячейки — свои сдвиг и hue, чтобы цвета жили независимо.
+ */
+.hero-mesh {
+  isolation: isolate;
+  transform: translate3d(0, 0, 0);
+  /* Мягкое затухание к верху/низу секции — без резкого обрубания полотна */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 7%,
+    rgba(0, 0, 0, 0.85) 16%,
+    #000 24%,
+    #000 76%,
+    rgba(0, 0, 0, 0.85) 84%,
+    rgba(0, 0, 0, 0.35) 93%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.35) 7%,
+    rgba(0, 0, 0, 0.85) 16%,
+    #000 24%,
+    #000 76%,
+    rgba(0, 0, 0, 0.85) 84%,
+    rgba(0, 0, 0, 0.35) 93%,
+    transparent 100%
+  );
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+  mask-mode: alpha;
+}
+
+.hero-mesh__drift--a {
+  position: absolute;
+  inset: -32%;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  animation: hero-mesh-drift-a 12s ease-in-out infinite alternate;
+}
+
+.hero-mesh__canvas {
+  position: absolute;
+  inset: 0;
+  filter: blur(50px);
+  transform: translate3d(0, 0, 0);
+}
+
+.hero-mesh__cell {
+  position: absolute;
+  inset: -22%;
+  background-repeat: no-repeat;
+  opacity: 0.9;
+  will-change: transform, filter, background-position, opacity;
+}
+
+/* Углы и «веса» цветов разнесены по полю hero */
+.hero-mesh__cell--1 {
+  background-size: 142% 138%;
+  background-image: radial-gradient(
+    ellipse 92% 86% at 14% 20%,
+    rgb(232 121 249 / 0.36),
+    rgb(251 113 133 / 0.12) 45%,
+    transparent 62%
+  );
+  background-position: 2% 4%;
+  animation:
+    hero-mesh-c1-shift 6.5s linear infinite,
+    hero-mesh-c1-hue 3s ease-in-out infinite alternate,
+    hero-mesh-cell-breathe 1.5s ease-in-out infinite alternate;
+  animation-delay:
+    0s,
+    -1s,
+    -0.5s;
+}
+
+.hero-mesh__cell--2 {
+  background-size: 136% 142%;
+  background-image: radial-gradient(
+    ellipse 96% 88% at 86% 18%,
+    rgb(125 211 252 / 0.38),
+    rgb(96 165 250 / 0.14) 48%,
+    transparent 62%
+  );
+  background-position: -2% 0%;
+  animation:
+    hero-mesh-c2-shift 8.5s linear infinite,
+    hero-mesh-c2-hue 4s ease-in-out infinite alternate,
+    hero-mesh-cell-breathe 2s ease-in-out infinite alternate;
+  animation-delay:
+    -1.5s,
+    -2.25s,
+    -2.75s;
+}
+
+.hero-mesh__cell--3 {
+  background-size: 140% 134%;
+  background-image: radial-gradient(
+    ellipse 90% 92% at 16% 82%,
+    rgb(253 186 116 / 0.34),
+    rgb(251 146 60 / 0.14) 46%,
+    transparent 60%
+  );
+  background-position: 4% -2%;
+  animation:
+    hero-mesh-c3-shift 7.5s linear infinite,
+    hero-mesh-c3-hue 2.5s ease-in-out infinite alternate,
+    hero-mesh-cell-breathe 1.5s ease-in-out infinite alternate;
+  animation-delay:
+    -0.75s,
+    -3s,
+    -1.75s;
+}
+
+.hero-mesh__cell--4 {
+  background-size: 144% 140%;
+  background-image: radial-gradient(
+    ellipse 94% 90% at 84% 78%,
+    rgb(96 165 250 / 0.32),
+    rgb(0 113 227 / 0.16) 44%,
+    transparent 61%
+  );
+  background-position: -4% 2%;
+  animation:
+    hero-mesh-c4-shift 9.5s linear infinite,
+    hero-mesh-c4-hue 4.5s ease-in-out infinite alternate,
+    hero-mesh-cell-breathe 2.25s ease-in-out infinite alternate;
+  animation-delay:
+    -2s,
+    -0.5s,
+    -3.75s;
+}
+
+.dark .hero-mesh__cell--1 {
+  background-image: radial-gradient(
+    ellipse 92% 86% at 14% 20%,
+    rgb(192 38 211 / 0.28),
+    rgb(219 39 119 / 0.1) 45%,
+    transparent 62%
+  );
+  animation:
+    hero-mesh-c1-shift 11s linear infinite,
+    hero-mesh-c1-hue-dark 7.5s ease-in-out infinite alternate;
+  animation-delay:
+    0s,
+    -1s;
+}
+
+.dark .hero-mesh__cell--2 {
+  background-image: radial-gradient(
+    ellipse 96% 88% at 86% 18%,
+    rgb(14 165 233 / 0.3),
+    rgb(59 130 246 / 0.12) 48%,
+    transparent 62%
+  );
+  animation:
+    hero-mesh-c2-shift 13s linear infinite,
+    hero-mesh-c2-hue-dark 8.5s ease-in-out infinite alternate;
+  animation-delay:
+    -1.5s,
+    -2.25s;
+}
+
+.dark .hero-mesh__cell--3 {
+  background-image: radial-gradient(
+    ellipse 90% 92% at 16% 82%,
+    rgb(249 115 22 / 0.26),
+    rgb(234 88 12 / 0.1) 46%,
+    transparent 60%
+  );
+  animation:
+    hero-mesh-c3-shift 12s linear infinite,
+    hero-mesh-c3-hue-dark 7s ease-in-out infinite alternate;
+  animation-delay:
+    -0.75s,
+    -3s;
+}
+
+.dark .hero-mesh__cell--4 {
+  background-image: radial-gradient(
+    ellipse 94% 90% at 84% 78%,
+    rgb(41 151 255 / 0.26),
+    rgb(99 102 241 / 0.12) 44%,
+    transparent 61%
+  );
+  animation:
+    hero-mesh-c4-shift 14s linear infinite,
+    hero-mesh-c4-hue-dark 8s ease-in-out infinite alternate;
+  animation-delay:
+    -2s,
+    -0.5s;
+}
+
+.dark .hero-mesh__canvas {
+  filter: blur(54px) brightness(0.92);
+}
+
+@keyframes hero-mesh-drift-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  22% {
+    transform: translate3d(5%, -4%, 0) rotate(2.2deg) scale(1.07);
+  }
+  48% {
+    transform: translate3d(-4%, 6%, 0) rotate(-1.4deg) scale(0.96);
+  }
+  72% {
+    transform: translate3d(-6%, -3%, 0) rotate(1.6deg) scale(1.05);
+  }
+}
+
+@keyframes hero-mesh-c1-shift {
+  0%,
+  100% {
+    background-position: 2% 4%;
+  }
+  25% {
+    background-position: -12% 14%;
+  }
+  50% {
+    background-position: 10% -8%;
+  }
+  75% {
+    background-position: -6% -6%;
+  }
+}
+
+@keyframes hero-mesh-c2-shift {
+  0%,
+  100% {
+    background-position: -2% 0%;
+  }
+  25% {
+    background-position: 10% 12%;
+  }
+  50% {
+    background-position: -14% 6%;
+  }
+  75% {
+    background-position: 6% -12%;
+  }
+}
+
+@keyframes hero-mesh-c3-shift {
+  0%,
+  100% {
+    background-position: 4% -2%;
+  }
+  25% {
+    background-position: -8% -14%;
+  }
+  50% {
+    background-position: 14% 8%;
+  }
+  75% {
+    background-position: -4% 10%;
+  }
+}
+
+@keyframes hero-mesh-c4-shift {
+  0%,
+  100% {
+    background-position: -4% 2%;
+  }
+  25% {
+    background-position: 12% -10%;
+  }
+  50% {
+    background-position: -10% 14%;
+  }
+  75% {
+    background-position: 8% 6%;
+  }
+}
+
+@keyframes hero-mesh-c1-hue {
+  0% {
+    filter: hue-rotate(-38deg) saturate(0.95);
+  }
+  100% {
+    filter: hue-rotate(46deg) saturate(1.2);
+  }
+}
+
+@keyframes hero-mesh-c2-hue {
+  0% {
+    filter: hue-rotate(32deg) saturate(1.1);
+  }
+  100% {
+    filter: hue-rotate(-44deg) saturate(0.9);
+  }
+}
+
+@keyframes hero-mesh-c3-hue {
+  0% {
+    filter: hue-rotate(-22deg) saturate(1.05);
+  }
+  100% {
+    filter: hue-rotate(40deg) saturate(1.18);
+  }
+}
+
+@keyframes hero-mesh-c4-hue {
+  0% {
+    filter: hue-rotate(40deg) saturate(0.92);
+  }
+  100% {
+    filter: hue-rotate(-36deg) saturate(1.15);
+  }
+}
+
+@keyframes hero-mesh-c1-hue-dark {
+  0% {
+    filter: brightness(0.88) saturate(1.12) hue-rotate(-32deg);
+  }
+  100% {
+    filter: brightness(1.02) saturate(1.22) hue-rotate(38deg);
+  }
+}
+
+@keyframes hero-mesh-c2-hue-dark {
+  0% {
+    filter: brightness(0.95) saturate(1.08) hue-rotate(28deg);
+  }
+  100% {
+    filter: brightness(0.82) saturate(1.05) hue-rotate(-40deg);
+  }
+}
+
+@keyframes hero-mesh-c3-hue-dark {
+  0% {
+    filter: brightness(0.9) saturate(1.15) hue-rotate(-26deg);
+  }
+  100% {
+    filter: brightness(1) saturate(1.2) hue-rotate(34deg);
+  }
+}
+
+@keyframes hero-mesh-c4-hue-dark {
+  0% {
+    filter: brightness(0.92) saturate(1.06) hue-rotate(36deg);
+  }
+  100% {
+    filter: brightness(0.85) saturate(1.14) hue-rotate(-30deg);
+  }
+}
+
+@keyframes hero-mesh-cell-breathe {
+  0% {
+    opacity: 0.82;
+  }
+  100% {
+    opacity: 0.96;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mesh__drift--a {
+    animation: none !important;
+    transform: none;
+  }
+
+  .hero-mesh__cell {
+    animation: none !important;
+    will-change: auto;
+    filter: none;
+  }
+
+  .hero-mesh__cell--1 {
+    background-position: 2% 4%;
+    opacity: 0.9;
+  }
+
+  .hero-mesh__cell--2 {
+    background-position: -2% 0%;
+    opacity: 0.88;
+  }
+
+  .hero-mesh__cell--3 {
+    background-position: 4% -2%;
+    opacity: 0.88;
+  }
+
+  .hero-mesh__cell--4 {
+    background-position: -4% 2%;
+    opacity: 0.88;
+  }
+
+  .dark .hero-mesh__canvas {
+    filter: blur(54px) brightness(0.92);
+  }
+
+  .dark .hero-mesh__cell--1,
+  .dark .hero-mesh__cell--2,
+  .dark .hero-mesh__cell--3,
+  .dark .hero-mesh__cell--4 {
+    opacity: 0.72;
+  }
+}
+
+.reveal-ov {
+  opacity: 0;
+  transform: translate3d(0, 1.25rem, 0);
+  --reveal-delay: 0ms;
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay);
+}
+
+.reveal-ov--in {
+  opacity: 1;
+  transform: none;
+}
+
+/* Skills Hub: без scale при reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .skills-hub-card:hover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-ov {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  header nav a::after {
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
