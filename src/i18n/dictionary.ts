@@ -110,22 +110,25 @@ export type Messages = {
 export const dictionary: Record<Locale, Messages> = {
 	en: {
 		seo: {
-			pageTitle: 'Full-Cycle Developer · UI to DevOps & AI',
+			pageTitle: 'Jan Spinu · Senior Full-Stack & AI Integration Engineer',
 			pageDescription:
-				'Full-cycle developer: UI/UX, front-end, back-end, DevOps, testing, AI integration, and technical SEO. TypeScript, React, Next.js, Go, Python.',
-			personName: 'Your Name',
-			personJobTitle: 'Full-Cycle Developer & AI Integration',
+				'Senior Full-Stack Engineer specializing in LLM integration, autonomous AI agents, and high-performance web systems. React, Next.js, Vue 3, Go, Python, FastAPI, TypeScript.',
+			personName: 'Jan Spinu',
+			personJobTitle: 'Senior Full-Stack Engineer & AI Integration Specialist',
 			knowsAbout: [
-				'UI/UX',
+				'LLM Integration',
+				'Autonomous AI Agents',
 				'React',
 				'Next.js',
+				'Vue 3',
+				'Nuxt',
+				'Angular',
 				'TypeScript',
 				'Go',
 				'Python',
-				'Testing',
+				'FastAPI',
 				'DevOps',
-				'AI workflows',
-				'SEO',
+				'Performance Optimization',
 			],
 		},
 		nav: {
@@ -140,17 +143,17 @@ export const dictionary: Record<Locale, Messages> = {
 			language: 'Language',
 		},
 		hero: {
-			kicker: 'Full-cycle · AI · SEO',
-			headline: 'I ship calm, fast products end to end.',
+			kicker: 'Full-Stack · AI Agents · 5+ yrs',
+			headline: 'I build fast products and wire AI that actually works.',
 			subline:
-				'From interface craft and front-end performance to APIs, infra, tests, and AI-assisted workflows — with search and analytics in mind.',
-			photoAlt: 'Professional photo (placeholder)',
+				'Senior Full-Stack Engineer specializing in LLM integration, autonomous agent workflows, and low-latency architectures — shipped for government, finance, and 50k+ daily users.',
+			photoAlt: 'Jan Spinu — Senior Full-Stack & AI Engineer',
 			ctaProjects: 'See projects',
 			ctaContact: 'Get in touch',
 		},
 		about: {
 			title: 'About',
-			body: 'I combine product thinking with engineering depth: clear UX, strict TypeScript, solid test coverage, observable deployments, and LLM features that stay maintainable. Replace this block with your real story, clients, and metrics.',
+			body: 'I bridge complex frontend ecosystems and resilient backend architectures — with a sharp focus on AI-driven development. Over 5 years I\'ve shipped mission-critical systems for government, finance, and healthcare; automated 40% of data workflows with autonomous agents; and pushed LCP scores down by 45% on high-traffic frontends. Clean code, measurable outcomes, no fluff.',
 		},
 		skills: {
 			title: 'Skills',
@@ -159,11 +162,12 @@ export const dictionary: Record<Locale, Messages> = {
 				backend: 'Backend',
 				uiux: 'UI / UX',
 				testing: 'Testing',
-				ai: 'AI / Integration',
+				ai: 'AI / Agents',
 				devops: 'DevOps',
 			},
 			hubClose: 'Close',
 			hubHint: 'Click a category to explore the stack',
+			hubStackLabel: 'Stack',
 		},
 		projects: {
 			title: 'Projects',
@@ -175,50 +179,50 @@ export const dictionary: Record<Locale, Messages> = {
 			slideNextLabel: 'Next image',
 			items: [
 				{
-					title: 'Latency-aware dashboard',
-					problem: 'Cut perceived load time for operators monitoring live data without losing density.',
-					stack: 'Next.js · Edge caching · Observability',
-					url: 'https://example.com/projects/latency-dashboard',
-					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Latency dashboard overview',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Latency metrics panel',
-						},
-					],
-				},
-				{
-					title: 'Typed API + contract tests',
-					problem: 'Prevent mobile and web drift by enforcing shared schemas from CI.',
-					stack: 'TypeScript · OpenAPI · Playwright',
-					url: 'https://example.com/projects/typed-api',
-					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Typed API code view',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Contract test run dashboard',
-						},
-					],
-				},
-				{
-					title: 'AI-assisted support triage',
-					problem: 'Route tickets with guardrails: retrieval, citations, and human handoff.',
-					stack: 'LLM APIs · Embeddings · Queue workers',
-					url: 'https://example.com/projects/ai-triage',
+					title: 'Autonomous AI Agent Suite',
+					problem: 'Automate 40% of repetitive data-processing tasks while keeping workflows auditable and production-ready.',
+					stack: 'Python · FastAPI · LangChain · Autonomous Agents · PostgreSQL',
+					url: 'https://linkedin.com/in/jan-spinu',
 					images: [
 						{
 							src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80',
-							alt: 'AI ticket routing dashboard',
+							alt: 'AI agent workflow dashboard',
+						},
+						{
+							src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Agent orchestration pipeline',
+						},
+					],
+				},
+				{
+					title: 'Cross-Framework Design System',
+					problem: 'Unify UI delivery across Angular and React codebases for government, finance, and healthcare clients — cutting feature release time by 30%.',
+					stack: 'Storybook · Angular · TypeScript · .NET Core · Design Tokens',
+					url: 'https://linkedin.com/in/jan-spinu',
+					images: [
+						{
+							src: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Design system component library',
 						},
 						{
 							src: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1400&q=80',
-							alt: 'AI assistant conversation flow',
+							alt: 'Component documentation interface',
+						},
+					],
+				},
+				{
+					title: 'High-Concurrency Log Processing Service',
+					problem: 'Handle 10k+ requests per second with reliable ingestion and cut API response times by 50% through deep query optimization.',
+					stack: 'Go · PostgreSQL · Docker · CI/CD · gRPC',
+					url: 'https://linkedin.com/in/jan-spinu',
+					images: [
+						{
+							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Log processing service overview',
+						},
+						{
+							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Performance metrics dashboard',
 						},
 					],
 				},
@@ -226,7 +230,7 @@ export const dictionary: Record<Locale, Messages> = {
 		},
 		contact: {
 			title: 'Contact',
-			lead: 'Short note is enough — I usually reply within one business day.',
+			lead: 'Got a product challenge or AI integration in mind? A short note is enough — I usually reply within one business day.',
 			formSubject: 'Portfolio — contact form',
 			name: 'Name',
 			email: 'Email',
@@ -243,46 +247,49 @@ export const dictionary: Record<Locale, Messages> = {
 			budget: 'Expected budget',
 			budgetPlaceholder: 'Select budget',
 			budgetUnder1k: '<$1k',
-			budget1to5k: '$1k-$5k',
+			budget1to5k: '$1k–$5k',
 			budget5kPlus: '$5k+',
 			timeline: 'Timeline',
-			timelinePlaceholder: 'For example: ASAP',
+			timelinePlaceholder: 'e.g. ASAP or Q3 2025',
 			messagePlaceholder: 'Describe your project goals, scope, and context',
 			privacyNote: 'Protected against spam. Privacy is guaranteed.',
 			altTelegram: 'Telegram',
 			altEmail: 'Email',
 		},
 		footer: {
-			note: 'Built with Astro, Solid, and Tailwind. Content is placeholder — swap for your own.',
+			note: 'Built with Astro, SolidJS, and Tailwind. Engineered for performance and clarity.',
 		},
 		chat: {
 			open: 'Open assistant',
 			close: 'Close',
 			title: 'AI assistant',
-			placeholder: 'Ask about stack, delivery, or SEO…',
+			placeholder: 'Ask about stack, past projects, or availability…',
 			send: 'Send',
-			empty: 'Ask a question to see a mock reply. Wire Groq or Gemini via env when ready.',
+			empty: 'Ask me anything about Jan\'s experience, tech stack, or how we can work together.',
 			error: 'Request failed. Try again.',
 		},
 	},
 	ru: {
 		seo: {
-			pageTitle: 'Full-Cycle разработчик · UI, бэкенд, DevOps и AI',
+			pageTitle: 'Jan Spinu · Senior Full-Stack & AI Integration Engineer',
 			pageDescription:
-				'Full-cycle разработка: UI/UX, фронтенд, бэкенд, DevOps, тестирование, интеграция AI и техническое SEO. TypeScript, React, Next.js, Go, Python.',
-			personName: 'Ваше имя',
-			personJobTitle: 'Full-Cycle разработчик и интеграция AI',
+				'Senior Full-Stack Engineer со специализацией на LLM-интеграции, автономных AI-агентах и высоконагруженных веб-системах. React, Next.js, Vue 3, Go, Python, FastAPI, TypeScript.',
+			personName: 'Jan Spinu',
+			personJobTitle: 'Senior Full-Stack Engineer и AI Integration Specialist',
 			knowsAbout: [
-				'UI/UX',
+				'LLM Integration',
+				'Автономные AI агенты',
 				'React',
 				'Next.js',
+				'Vue 3',
+				'Nuxt',
+				'Angular',
 				'TypeScript',
 				'Go',
 				'Python',
-				'Тестирование',
+				'FastAPI',
 				'DevOps',
-				'AI workflows',
-				'SEO',
+				'Оптимизация производительности',
 			],
 		},
 		nav: {
@@ -297,17 +304,17 @@ export const dictionary: Record<Locale, Messages> = {
 			language: 'Язык',
 		},
 		hero: {
-			kicker: 'Full-cycle · AI · SEO',
-			headline: 'Делаю спокойные, быстрые продукты под ключ.',
+			kicker: 'Full-Stack · AI Агенты · 5+ лет',
+			headline: 'Строю быстрые продукты и внедряю AI, который работает.',
 			subline:
-				'От интерфейса и перфоманса фронта до API, инфры, тестов и AI-процессов — с учётом поиска и аналитики.',
-			photoAlt: 'Профессиональное фото (заглушка)',
+				'Senior Full-Stack Engineer со специализацией на LLM-интеграции, автономных агентах и низколатентных архитектурах — для госсектора, финансов и продуктов с 50k+ пользователей в день.',
+			photoAlt: 'Jan Spinu — Senior Full-Stack & AI Engineer',
 			ctaProjects: 'Смотреть проекты',
 			ctaContact: 'Связаться',
 		},
 		about: {
 			title: 'Обо мне',
-			body: 'Соединяю продуктовое мышление с инженерией: понятный UX, строгий TypeScript, тесты, наблюдаемые деплои и LLM-фичи, которые не ломают поддержку. Замените этот текст на свой опыт, клиентов и цифры.',
+			body: 'Строю мост между сложными фронтенд-экосистемами и надёжными бэкендами — с фокусом на AI-разработку. За 5+ лет: запустил критически важные системы для госсектора, финансов и медицины; автоматизировал 40% рутинных задач автономными агентами; снизил LCP на 45% на высоконагруженных фронтендах. Чистый код, измеримые результаты, никакой воды.',
 		},
 		skills: {
 			title: 'Навыки',
@@ -316,7 +323,7 @@ export const dictionary: Record<Locale, Messages> = {
 				backend: 'Backend',
 				uiux: 'UI / UX',
 				testing: 'Тестирование',
-				ai: 'AI / Интеграции',
+				ai: 'AI / Агенты',
 				devops: 'DevOps',
 			},
 			hubClose: 'Свернуть',
@@ -333,50 +340,50 @@ export const dictionary: Record<Locale, Messages> = {
 			slideNextLabel: 'Следующее изображение',
 			items: [
 				{
-					title: 'Дашборд с упором на задержку',
-					problem: 'Снизить ощущаемое время загрузки для операторов без потери плотности данных.',
-					stack: 'Next.js · Edge cache · Observability',
-					url: 'https://example.com/projects/latency-dashboard',
-					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Общий экран дашборда задержек',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Панель метрик задержек',
-						},
-					],
-				},
-				{
-					title: 'Типизированное API и контрактные тесты',
-					problem: 'Убрать расхождения web/mobile через общие схемы и CI.',
-					stack: 'TypeScript · OpenAPI · Playwright',
-					url: 'https://example.com/projects/typed-api',
-					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Экран с типизированным API',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Отчёт по контрактным тестам',
-						},
-					],
-				},
-				{
-					title: 'AI-помощник для тикетов',
-					problem: 'Маршрутизация обращений с ограничениями: поиск, цитаты, эскалация к человеку.',
-					stack: 'LLM API · Embeddings · Очереди',
-					url: 'https://example.com/projects/ai-triage',
+					title: 'Autonomous AI Agent Suite',
+					problem: 'Автоматизировать 40% рутинных задач по обработке данных, сохранив аудируемость и производственную надёжность.',
+					stack: 'Python · FastAPI · LangChain · Autonomous Agents · PostgreSQL',
+					url: 'https://linkedin.com/in/jan-spinu',
 					images: [
 						{
 							src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Панель маршрутизации заявок с AI',
+							alt: 'Дашборд AI-агентов',
+						},
+						{
+							src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Пайплайн оркестрации агентов',
+						},
+					],
+				},
+				{
+					title: 'Кросс-фреймворк Design System',
+					problem: 'Унифицировать UI-разработку на Angular и React для клиентов из госсектора, финансов и медицины — сократив время выпуска фич на 30%.',
+					stack: 'Storybook · Angular · TypeScript · .NET Core · Design Tokens',
+					url: 'https://linkedin.com/in/jan-spinu',
+					images: [
+						{
+							src: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Библиотека компонентов дизайн-системы',
 						},
 						{
 							src: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Экран сценариев AI-ассистента',
+							alt: 'Документация компонентов',
+						},
+					],
+				},
+				{
+					title: 'Высоконагруженный сервис обработки логов',
+					problem: 'Обработать 10k+ запросов в секунду с надёжной приёмкой данных и сократить время ответа API на 50% через глубокую оптимизацию запросов.',
+					stack: 'Go · PostgreSQL · Docker · CI/CD · gRPC',
+					url: 'https://linkedin.com/in/jan-spinu',
+					images: [
+						{
+							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Обзор сервиса обработки логов',
+						},
+						{
+							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
+							alt: 'Дашборд метрик производительности',
 						},
 					],
 				},
@@ -384,7 +391,7 @@ export const dictionary: Record<Locale, Messages> = {
 		},
 		contact: {
 			title: 'Контакт',
-			lead: 'Достаточно короткого сообщения — обычно отвечаю в течение рабочего дня.',
+			lead: 'Есть продуктовый вызов или задача по AI-интеграции? Короткого сообщения достаточно — обычно отвечаю в течение рабочего дня.',
 			formSubject: 'Портфолио — форма связи',
 			name: 'Имя',
 			email: 'Почта',
@@ -401,25 +408,25 @@ export const dictionary: Record<Locale, Messages> = {
 			budget: 'Ожидаемый бюджет',
 			budgetPlaceholder: 'Выберите бюджет',
 			budgetUnder1k: '<$1k',
-			budget1to5k: '$1k-$5k',
+			budget1to5k: '$1k–$5k',
 			budget5kPlus: '$5k+',
 			timeline: 'Сроки',
-			timelinePlaceholder: 'Например: ASAP',
+			timelinePlaceholder: 'Например: ASAP или Q3 2025',
 			messagePlaceholder: 'Опишите задачу, цели проекта и важные детали',
 			privacyNote: 'Защищено от спама, конфиденциальность гарантирована.',
 			altTelegram: 'Telegram',
 			altEmail: 'Почта',
 		},
 		footer: {
-			note: 'Собрано на Astro, Solid и Tailwind. Тексты-заглушки — замените своими.',
+			note: 'Собрано на Astro, SolidJS и Tailwind. Оптимизировано для производительности и читаемости.',
 		},
 		chat: {
 			open: 'Открыть ассистента',
 			close: 'Закрыть',
 			title: 'AI-ассистент',
-			placeholder: 'Спросите про стек, поставку или SEO…',
+			placeholder: 'Спросите про стек, проекты или сотрудничество…',
 			send: 'Отправить',
-			empty: 'Задайте вопрос — ответ пока mock. Подключите Groq или Gemini через env.',
+			empty: 'Задайте вопрос — расскажу об опыте Jan, технологиях или как мы можем поработать вместе.',
 			error: 'Запрос не прошёл. Повторите.',
 		},
 	},
@@ -429,8 +436,7 @@ export function getMessages(locale: Locale): Messages {
 	return dictionary[locale];
 }
 
-/** Placeholder — замените на свои ссылки */
 export const contactLinks = {
-	telegram: 'https://t.me/yourusername',
-	email: 'mailto:you@example.com',
+	telegram: 'https://t.me/janspinu',
+	email: 'mailto:jeanspynu@yandex.ru',
 } as const;
