@@ -437,6 +437,6 @@ export function getMessages(locale: Locale): Messages {
 }
 
 export const contactLinks = {
-	telegram: 'https://t.me/janspinu',
-	email: 'mailto:jeanspynu@yandex.ru',
+	telegram: 'https://t.me/jspinu',
+	email: 'mailto:jspynu15@gmail.com',
 } as const;
