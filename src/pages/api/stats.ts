@@ -1,24 +1,40 @@
 import type { APIRoute } from 'astro';
-import { kv } from '@vercel/kv';
+import { Redis } from '@upstash/redis';
+
+function getRedis() {
+	const url =
+		(import.meta.env.UPSTASH_REDIS_REST_URL as string | undefined) ??
+		process.env.UPSTASH_REDIS_REST_URL;
+	const token =
+		(import.meta.env.UPSTASH_REDIS_REST_TOKEN as string | undefined) ??
+		process.env.UPSTASH_REDIS_REST_TOKEN;
+	if (!url || !token) return null;
+	return new Redis({ url, token });
+}
 
 export const GET: APIRoute = async () => {
+	const redis = getRedis();
+	if (!redis) {
+		return new Response(JSON.stringify({ error: 'not configured' }), {
+			status: 503,
+			headers: { 'Content-Type': 'application/json' },
+		});
+	}
+
 	try {
 		const today = new Date().toISOString().split('T')[0];
 		const fiveMinAgo = Date.now() - 5 * 60 * 1000;
 
-		// Prune stale sessions
-		await kv.zremrangebyscore('sessions:active', 0, fiveMinAgo);
+		await redis.zremrangebyscore('sessions:active', 0, fiveMinAgo);
 
 		const [onlineNow, todayVisitors, totalVisitors, countriesRaw] =
 			await Promise.all([
-				kv.zcard('sessions:active'),
-				kv.get<number>(`visitors:day:${today}`),
-				kv.get<number>('visitors:total'),
-				// Top 6 countries sorted by count descending, with scores
-				kv.zrange<string[]>('countries', 0, 5, { rev: true, withScores: true }),
+				redis.zcard('sessions:active'),
+				redis.get<number>(`visitors:day:${today}`),
+				redis.get<number>('visitors:total'),
+				redis.zrange<string[]>('countries', 0, 5, { rev: true, withScores: true }),
 			]);
 
-		// zrange withScores returns [member, score, member, score, ...]
 		const topCountries: { country: string; count: number }[] = [];
 		if (Array.isArray(countriesRaw)) {
 			for (let i = 0; i < countriesRaw.length - 1; i += 2) {
@@ -39,7 +55,7 @@ export const GET: APIRoute = async () => {
 			{ headers: { 'Content-Type': 'application/json' } },
 		);
 	} catch {
-		return new Response(JSON.stringify({ error: 'KV not configured' }), {
+		return new Response(JSON.stringify({ error: 'redis error' }), {
 			status: 503,
 			headers: { 'Content-Type': 'application/json' },
 		});
