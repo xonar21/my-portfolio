@@ -1,16 +1,14 @@
-import { For, createEffect, createSignal, onCleanup } from 'solid-js';
+import { For, Show, createEffect, createSignal, onCleanup } from 'solid-js';
 
 export type CarouselProject = {
 	title: string;
 	problem: string;
-	stack: string;
-	url: string;
+	url?: string;
 	images: { src: string; alt: string }[];
 };
 
 function ProjectImageSlider(props: {
 	images: { src: string; alt: string }[];
-	projectTitle: string;
 	prevLabel: string;
 	nextLabel: string;
 }) {
@@ -227,7 +225,6 @@ export default function ProjectCarousel(props: {
 									<article class="project-card group flex h-full min-h-[20rem] flex-col rounded-3xl border border-black/5 bg-white/90 p-6 shadow-none backdrop-blur-sm transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-black/10 dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-white/20 md:min-h-[22rem] md:p-8">
 										<ProjectImageSlider
 											images={p.images}
-											projectTitle={p.title}
 											prevLabel={props.labels.prevImage}
 											nextLabel={props.labels.nextImage}
 										/>
@@ -240,26 +237,27 @@ export default function ProjectCarousel(props: {
 										<p class="mt-3 flex-1 text-pretty text-[15px] leading-[1.5] text-neutral-600 md:text-[17px] dark:text-neutral-400">
 											{p.problem}
 										</p>
-										<p class="mt-6 text-[14px] font-medium leading-snug text-[#0071e3] md:text-[15px] dark:text-[#2997ff]">
-											{p.stack}
-										</p>
-										<a
-											href={p.url}
-											target="_blank"
-											rel="noopener noreferrer"
-											class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-[#0071e3] transition-opacity duration-200 hover:opacity-80 dark:text-[#2997ff]"
-										>
-											{props.labels.openProject}
-											<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-												<path
-													d="M7 17L17 7M9 7h8v8"
-													stroke="currentColor"
-													stroke-width="1.8"
-													stroke-linecap="round"
-													stroke-linejoin="round"
-												/>
-											</svg>
-										</a>
+										<Show when={p.url}>
+											{(url) => (
+												<a
+													href={url()}
+													target="_blank"
+													rel="noopener noreferrer"
+													class="mt-5 inline-flex items-center gap-1.5 text-[13px] font-medium text-[#0071e3] transition-opacity duration-200 hover:opacity-80 dark:text-[#2997ff]"
+												>
+													{props.labels.openProject}
+													<svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+														<path
+															d="M7 17L17 7M9 7h8v8"
+															stroke="currentColor"
+															stroke-width="1.8"
+															stroke-linecap="round"
+															stroke-linejoin="round"
+														/>
+													</svg>
+												</a>
+											)}
+										</Show>
 									</article>
 								</div>
 							)}
