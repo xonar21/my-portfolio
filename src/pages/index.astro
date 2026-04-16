@@ -1,5 +1,5 @@
 ---
-export const prerender = true;
-
-return Astro.redirect('/en/', 302);
+// Handled by middleware for language detection
+// This page should not be prerendered to allow middleware to process requests
+export const prerender = false;
 ---
