@@ -1,11 +1,24 @@
 ---
 /**
- * SEO layer (explicit structure for audits):
- * 1) Unique <title> + meta description per route
- * 2) Canonical + hreflang for locale copies
- * 3) Open Graph / Twitter parity
- * 4) JSON-LD (Person + WebSite) aligned with visible content
+ * SEO.astro — Comprehensive SEO & Social Meta Tags
+ *
+ * Handles:
+ * 1) Core SEO: title, description, canonical, robots directives
+ * 2) i18n SEO: hreflang with x-default fallback for multi-language sites
+ * 3) Open Graph: OG image with precise dimensions (1200x630 recommended)
+ * 4) Twitter Cards: summary_large_image for rich social previews
+ * 5) JSON-LD Structured Data: Person + WebSite schemas with location, contact, sameAs
+ * 6) Mobile optimization: viewport, mobile-web-app metadata
+ * 7) Performance & security: preconnect hints, no-referrer policy
+ *
+ * OG Image Guidelines:
+ * - Recommended: 1200x630px (16:9 aspect ratio)
+ * - Minimum: 1024x512px
+ * - File: /public/og-image.webp or .png
+ * - Format: WebP preferred (better compression), PNG as fallback
+ * - Text in image: ≥20px, high contrast, centered
  */
+
 import type { Locale } from '../i18n/dictionary';
 
 interface Props {
@@ -18,6 +31,17 @@ interface Props {
 	personJobTitle: string;
 	knowsAbout: string[];
 	ogImage?: string;
+	/** Explicit image width/height for OG meta tags. Defaults to 1200x630 */
+	ogImageWidth?: number;
+	ogImageHeight?: number;
+	/** For override: author email, phone, location */
+	authorContact?: {
+		email?: string;
+		telephone?: string;
+		areaServed?: string;
+	};
+	/** Social profiles to include in Person schema sameAs array */
+	socialProfiles?: string[];
 }
 
 const {
@@ -29,11 +53,22 @@ const {
 	personJobTitle,
 	knowsAbout,
 	ogImage,
+	ogImageWidth = 1200,
+	ogImageHeight = 630,
+	authorContact,
+	socialProfiles = [
+		'https://t.me/jspinu',
+		'https://github.com/xonar21',
+		'https://linkedin.com/in/janspinu',
+	],
 } = Astro.props;
 
+// === URL Construction ===
 const siteRaw = import.meta.env.PUBLIC_SITE_URL;
 const site = (typeof siteRaw === 'string' ? siteRaw : '').replace(/\/$/, '') || null;
-const fallbackSite = import.meta.env.DEV ? 'http://localhost:4321' : 'https://example.com';
+const fallbackSite = import.meta.env.DEV
+	? 'http://localhost:4321'
+	: 'https://janspinu.com';
 const origin = site ?? fallbackSite;
 
 const pathSuffix = path === '/' ? '/' : path.startsWith('/') ? path : `/${path}`;
@@ -41,14 +76,22 @@ const canonical = `${origin}/${locale}${pathSuffix}`;
 const urlEn = `${origin}/en/`;
 const urlRu = `${origin}/ru/`;
 
+// === OG Locale & Image Handling ===
 const ogLocale = locale === 'ru' ? 'ru_RU' : 'en_US';
 const ogImageUrl =
 	ogImage && (ogImage.startsWith('http://') || ogImage.startsWith('https://'))
 		? ogImage
 		: ogImage
 			? `${origin}${ogImage.startsWith('/') ? ogImage : `/${ogImage}`}`
-			: null;
+			: `${origin}/og-image.png`; // Fallback to default OG image
 
+// === JSON-LD Structured Data ===
+/**
+ * Combines WebSite and Person schemas.
+ * - WebSite: overall site identity, language support
+ * - Person: author details, job title, expertise, contact, social profiles
+ * - SearchAction: sitelinks search functionality (Google SERP integration)
+ */
 const schema = {
 	'@context': 'https://schema.org',
 	'@graph': [
@@ -57,36 +100,153 @@ const schema = {
 			'@id': `${origin}/#website`,
 			url: `${origin}/`,
 			name: personName,
+			description: description,
 			inLanguage: ['en', 'ru'],
+			publisher: {
+				'@id': `${canonical}#person`,
+			},
+			potentialAction: {
+				'@type': 'SearchAction',
+				target: {
+					'@type': 'EntryPoint',
+					urlTemplate: `${origin}/search?q={search_term_string}`,
+				},
+				query_input: 'required name=search_term_string',
+			},
 		},
 		{
 			'@type': 'Person',
 			'@id': `${canonical}#person`,
 			name: personName,
 			jobTitle: personJobTitle,
+			description: description,
 			url: canonical,
-			knowsAbout,
-			sameAs: [],
+			knowsAbout: knowsAbout,
+			areaServed: authorContact?.areaServed || 'MD', // Chisinau, Moldova
+			email: authorContact?.email || 'jspynu15@gmail.com',
+			telephone: authorContact?.telephone,
+			image: ogImageUrl,
+			sameAs: socialProfiles,
+			workLocation: {
+				'@type': 'City',
+				name: 'Chisinau',
+				addressCountry: 'MD',
+			},
 		},
 	],
 };
+
+// === Debugging Helper ===
+if (import.meta.env.DEV) {
+	console.log(
+		'[SEO] Built canonical:',
+		canonical,
+		'| hreflang: en:', urlEn,
+		', ru:', urlRu,
+		'| OG image:',
+		ogImageUrl
+	);
+}
 ---
 
+<!-- ========== CORE SEO ========== -->
 <title>{title}</title>
 <meta name="description" content={description} />
+<meta name="robots" content="index, follow" />
+<meta name="referrer" content="strict-origin-when-cross-origin" />
+
+<!-- ========== CANONICAL URL ========== -->
 <link rel="canonical" href={canonical} />
+
+<!-- ========== i18n SEO: HREFLANG ========== -->
+<!--
+  Hreflang tells search engines which language version of a page to show users.
+  Prevents duplicate content penalties and ensures correct language delivery.
+
+  - hreflang="en" → English version
+  - hreflang="ru" → Russian version
+  - hreflang="x-default" → Fallback (English, US-based users)
+-->
 <link rel="alternate" hreflang="en" href={urlEn} />
 <link rel="alternate" hreflang="ru" href={urlRu} />
 <link rel="alternate" hreflang="x-default" href={urlEn} />
+
+<!-- ========== OPEN GRAPH (OG) ========== -->
+<!--
+  OG tags ensure rich previews when shared on LinkedIn, Twitter, Telegram, etc.
+
+  Recommended OG Image Specs:
+  - Dimensions: 1200x630px (16:9 aspect ratio) ← CRITICAL for consistency
+  - Size: <100KB (use WebP format for ~40% compression)
+  - Location: /public/og-image.webp or .png
+  - Text on image: highly visible, high contrast, centered
+  - Safe area: center 600x315px (for cropping on different platforms)
+
+  Platforms & Image Crop Behavior:
+  - LinkedIn: 1.91:1 ratio, center-crops to ~1200x630
+  - Twitter: 16:9 ratio, centered crop
+  - Facebook: 1200x630, may scale/crop
+  - Telegram: 1200x630, centered
+  - Slack: Square thumbnails, center-crops
+-->
 <meta property="og:type" content="website" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-<meta property="og:locale" content={ogLocale} />
 <meta property="og:site_name" content={personName} />
-{ogImageUrl ? <meta property="og:image" content={ogImageUrl} /> : null}
-<meta name="twitter:card" content={ogImageUrl ? 'summary_large_image' : 'summary'} />
+<meta property="og:locale" content={ogLocale} />
+<meta property="og:locale:alternate" content={locale === 'ru' ? 'en_US' : 'ru_RU'} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:width" content={ogImageWidth.toString()} />
+<meta property="og:image:height" content={ogImageHeight.toString()} />
+<meta property="og:image:type" content="image/png" />
+
+<!-- ========== TWITTER CARD ========== -->
+<!--
+  Twitter Card type:
+  - summary_large_image: Rich preview with large image (recommended for portfolios)
+  - summary: Text-only preview (if image unavailable)
+
+  Twitter cards ensure optimized previews when shared on Twitter/X, LinkedIn, etc.
+-->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@jspinu" />
+<meta name="twitter:creator" content="@jspinu" />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
-{ogImageUrl ? <meta name="twitter:image" content={ogImageUrl} /> : null}
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={`${personName} - ${personJobTitle}`} />
+
+<!-- ========== MOBILE & BROWSER METADATA ========== -->
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content={personName} />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#000000" media="(prefers-color-scheme: dark)" />
+
+<!-- ========== PERFORMANCE HINTS ========== -->
+<!--
+  DNS prefetch: preemptively resolve DNS for external resources
+  This reduces latency for third-party API calls, analytics, fonts, etc.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+
+<!-- ========== SECURITY & HEADERS ========== -->
+<meta name="color-scheme" content="light dark" />
+
+<!-- ========== JSON-LD STRUCTURED DATA ========== -->
+<!--
+  JSON-LD combines:
+  1. WebSite schema: declares site identity, language support, search actions
+  2. Person schema: author expertise, job title, location, contact, social profiles
+
+  Benefits:
+  - Enables rich SERP snippets (Google Knowledge Panel)
+  - Improves CTR with better preview data
+  - Supports voice search (Alexa, Google Assistant)
+  - Feeds AI/LLM training with canonical author data
+
+  Note: Place just before </head> for cleaner ordering, but it works anywhere in <head>
+-->
+<script type="application/ld+json" set:html={JSON.stringify(schema, null, 2)} />
