@@ -1,0 +1,40 @@
+1 проект alo.md
+картинки 1,2
+This is an online marketplace specializing in electronics, mobile phones, and household appliances in Moldova. It offers a wide range of gadgets and provides customers with the option to purchase items through credit or installment plans.
+ссылка - https://alo.md/ro
+
+2 проект ecaterix.md
+картинки 3,4
+This website belongs to a company that provides professional services in security systems, fire safety, and engineering networks. They offer design, installation, and maintenance for video surveillance, alarms, and fire protection systems for residential and commercial clients.
+ссылка https://ecaterix.md/
+
+3 проект terenuri.md
+картинки 5,6
+This is a specialized real estate portal focused on the sale and lease of land plots across Moldova. Users can find various types of land, including agricultural, residential, and industrial plots, with detailed maps and descriptions.
+ссылка https://terenuri.md/
+
+4 проект globalstore.md
+картинки 7,8
+This is a large retail platform offering a diverse selection of household goods, including kitchenware, home decor, toys, and cleaning supplies. It serves as a one-stop shop for daily essentials and lifestyle products for the family and home.
+ссылка https://globalstore.md/en
+
+5 проект farmacie.md
+картинки 9,10
+This is an online pharmaceutical platform (specifically for the "Farmacia Familiei" network) where users can search for medicines, beauty products, and health supplements. It allows customers to check availability in local branches and provides information on healthcare promotions and loyalty programs.
+ссылка https://farmacie.md/
+
+6 проект Bizon 360° CRM
+картинки 11,12
+Bizon 360° CRM is a comprehensive Customer Relationship Management platform designed to streamline your business operations and amplify your sales potential. Our robust system provides an all-encompassing view of your sales pipelines, lead management, task distribution, and detailed analytics to forecast deal closures. With user-friendly dashboards and real-time data, Bizon 360° enables businesses to track performance, optimize marketing strategies, and enhance customer service—transforming data into actionable insights and opportunities.
+ссылки нету
+
+7 проект DDWC
+картинки 13,14
+The main goal of the information system is to create an information resource that will enhance the procedures for determining limitations and employability, as well as ensure the accounting of all requests and individuals interacting with the National Council for Determining Limitations and Employability, a state institution subordinate to the Ministry of Labor and Social Protection of the Republic of Moldova.
+ссылки нету
+
+8 проект SSI LSE
+картинки 15,16
+This site belongs to the Central Election Commission (CEC) of the Republic of Moldova, an independent state body responsible for implementing electoral policy. The mission of the site is to create optimal conditions for the free and fair exercise of the constitutional rights of Moldova's citizens.
+ссылки нету
+
