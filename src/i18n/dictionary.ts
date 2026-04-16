@@ -6,8 +6,7 @@ export const defaultLocale: Locale = 'en';
 export type ProjectCard = {
 	title: string;
 	problem: string;
-	stack: string;
-	url: string;
+	url?: string;
 	images: { src: string; alt: string }[];
 };
 
@@ -105,6 +104,29 @@ export type Messages = {
 		empty: string;
 		error: string;
 	};
+	pagespeed: {
+		title: string;
+		lead: string;
+		tabMobile: string;
+		tabDesktop: string;
+		labelPerformance: string;
+		labelAccessibility: string;
+		labelBestPractices: string;
+		labelSeo: string;
+		lastChecked: string;
+		refresh: string;
+		loading: string;
+		noKey: string;
+	};
+	visitors: {
+		title: string;
+		labelOnline: string;
+		labelToday: string;
+		labelTotal: string;
+		labelRegions: string;
+		loading: string;
+		noData: string;
+	};
 };
 
 export const dictionary: Record<Locale, Messages> = {
@@ -179,51 +201,88 @@ export const dictionary: Record<Locale, Messages> = {
 			slideNextLabel: 'Next image',
 			items: [
 				{
-					title: 'Autonomous AI Agent Suite',
-					problem: 'Automate 40% of repetitive data-processing tasks while keeping workflows auditable and production-ready.',
-					stack: 'Python · FastAPI · LangChain · Autonomous Agents · PostgreSQL',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'alo.md — Electronics Marketplace',
+					problem: 'Online marketplace specializing in electronics, mobile phones, and household appliances in Moldova. Supports credit and installment purchase options for customers.',
+					url: 'https://alo.md/ro',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80',
-							alt: 'AI agent workflow dashboard',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Agent orchestration pipeline',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/1.png', alt: 'alo.md homepage' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/2.png', alt: 'alo.md product listing' },
 					],
 				},
 				{
-					title: 'Cross-Framework Design System',
-					problem: 'Unify UI delivery across Angular and React codebases for government, finance, and healthcare clients — cutting feature release time by 30%.',
-					stack: 'Storybook · Angular · TypeScript · .NET Core · Design Tokens',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'Ecaterix — Security Systems',
+					problem: 'Corporate website for a company providing security systems, fire safety, and engineering network services — covering design, installation, and maintenance for residential and commercial clients.',
+					url: 'https://ecaterix.md/',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Design system component library',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Component documentation interface',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/3.png', alt: 'Ecaterix homepage' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/4.png', alt: 'Ecaterix services page' },
 					],
 				},
 				{
-					title: 'High-Concurrency Log Processing Service',
-					problem: 'Handle 10k+ requests per second with reliable ingestion and cut API response times by 50% through deep query optimization.',
-					stack: 'Go · PostgreSQL · Docker · CI/CD · gRPC',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'Terenuri.md — Land Real Estate Portal',
+					problem: 'Specialized real estate portal for the sale and lease of land plots across Moldova. Covers agricultural, residential, and industrial land with detailed maps and descriptions.',
+					url: 'https://terenuri.md/',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Log processing service overview',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Performance metrics dashboard',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/5.png', alt: 'Terenuri.md land listings' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/6.png', alt: 'Terenuri.md map view' },
+					],
+				},
+				{
+					title: 'GlobalStore.md — Household Retail',
+					problem: 'Large retail platform offering a diverse selection of household goods: kitchenware, home decor, toys, and cleaning supplies — a one-stop shop for daily family essentials.',
+					url: 'https://globalstore.md/en',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/7.png', alt: 'GlobalStore homepage' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/8.png', alt: 'GlobalStore product categories' },
+					],
+				},
+				{
+					title: 'Farmacie.md — Online Pharmacy',
+					problem: 'Online pharmaceutical platform for the Farmacia Familiei network. Search medicines, beauty products, and health supplements; check local branch availability and loyalty programs.',
+					url: 'https://farmacie.md/',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/9.png', alt: 'Farmacie.md homepage' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/10.png', alt: 'Farmacie.md product search' },
+					],
+				},
+				{
+					title: 'Bizon 360° — CRM Platform',
+					problem: 'Comprehensive CRM platform to streamline business operations and amplify sales. Features full pipeline visibility, lead management, task distribution, and real-time analytics for deal forecasting.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/11.png', alt: 'Bizon 360 CRM dashboard' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/12.png', alt: 'Bizon 360 sales pipeline' },
+					],
+				},
+				{
+					title: 'DDWC — Disability Assessment System',
+					problem: 'State information system for Moldova\'s National Council for Determining Limitations and Employability. Manages case intake, request tracking, and individual records for disability and work capacity assessments.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/13.png', alt: 'DDWC system dashboard' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/14.png', alt: 'DDWC case management' },
+					],
+				},
+				{
+					title: 'CEC Moldova — Electoral Platform',
+					problem: 'Official portal for the Central Election Commission of the Republic of Moldova. Ensures transparent electoral processes and provides citizens with reliable information for exercising their voting rights.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/15.png', alt: 'CEC Moldova portal' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/16.png', alt: 'CEC Moldova electoral data' },
+					],
+				},
+				{
+					title: 'MedScheduler — Clinical Booking System',
+					problem: 'Multi-role Angular application for a private clinic network, enabling doctors, administrators, and patients to manage appointments, medical records, and real-time schedule availability.',
+					images: [
+						{ src: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=80', alt: 'Medical scheduling dashboard' },
+						{ src: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1400&q=80', alt: 'Clinic appointment calendar' },
+					],
+				},
+				{
+					title: 'LogStream — Event Ingestion Service',
+					problem: 'High-throughput Go service for event streaming and log aggregation, processing 50k+ events per second with fault-tolerant delivery and sub-millisecond routing for distributed systems.',
+					images: [
+						{ src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=80', alt: 'Server infrastructure' },
+						{ src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80', alt: 'Real-time data monitoring' },
 					],
 				},
 			],
@@ -267,6 +326,29 @@ export const dictionary: Record<Locale, Messages> = {
 			send: 'Send',
 			empty: 'Ask me anything about Jan\'s experience, tech stack, or how we can work together.',
 			error: 'Request failed. Try again.',
+		},
+		pagespeed: {
+			title: 'Performance',
+			lead: 'Verified by Google PageSpeed Insights',
+			tabMobile: 'Mobile',
+			tabDesktop: 'Desktop',
+			labelPerformance: 'Performance',
+			labelAccessibility: 'Accessibility',
+			labelBestPractices: 'Best Practices',
+			labelSeo: 'SEO',
+			lastChecked: 'Last checked',
+			refresh: 'Refresh',
+			loading: 'Running audit…',
+			noKey: 'PAGESPEED_API_KEY not configured.',
+		},
+		visitors: {
+			title: 'Visitors',
+			labelOnline: 'Online now',
+			labelToday: 'Today',
+			labelTotal: 'All time',
+			labelRegions: 'Top regions',
+			loading: 'Loading…',
+			noData: 'Analytics not configured.',
 		},
 	},
 	ru: {
@@ -340,51 +422,88 @@ export const dictionary: Record<Locale, Messages> = {
 			slideNextLabel: 'Следующее изображение',
 			items: [
 				{
-					title: 'Autonomous AI Agent Suite',
-					problem: 'Автоматизировать 40% рутинных задач по обработке данных, сохранив аудируемость и производственную надёжность.',
-					stack: 'Python · FastAPI · LangChain · Autonomous Agents · PostgreSQL',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'alo.md — Маркетплейс электроники',
+					problem: 'Онлайн-маркетплейс электроники, мобильных телефонов и бытовой техники в Молдове. Поддерживает покупку товаров в кредит и рассрочку.',
+					url: 'https://alo.md/ro',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Дашборд AI-агентов',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1677442135703-1787eea5ce01?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Пайплайн оркестрации агентов',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/1.png', alt: 'Главная страница alo.md' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/2.png', alt: 'Каталог товаров alo.md' },
 					],
 				},
 				{
-					title: 'Кросс-фреймворк Design System',
-					problem: 'Унифицировать UI-разработку на Angular и React для клиентов из госсектора, финансов и медицины — сократив время выпуска фич на 30%.',
-					stack: 'Storybook · Angular · TypeScript · .NET Core · Design Tokens',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'Ecaterix — Системы безопасности',
+					problem: 'Сайт компании, предоставляющей профессиональные услуги в области систем безопасности, пожарной защиты и инженерных сетей — проектирование, монтаж и обслуживание для жилых и коммерческих объектов.',
+					url: 'https://ecaterix.md/',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Библиотека компонентов дизайн-системы',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1545235617-9465d2a55698?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Документация компонентов',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/3.png', alt: 'Главная страница Ecaterix' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/4.png', alt: 'Услуги Ecaterix' },
 					],
 				},
 				{
-					title: 'Высоконагруженный сервис обработки логов',
-					problem: 'Обработать 10k+ запросов в секунду с надёжной приёмкой данных и сократить время ответа API на 50% через глубокую оптимизацию запросов.',
-					stack: 'Go · PostgreSQL · Docker · CI/CD · gRPC',
-					url: 'https://linkedin.com/in/jan-spinu',
+					title: 'Terenuri.md — Портал земельной недвижимости',
+					problem: 'Специализированный портал недвижимости для продажи и аренды земельных участков по всей Молдове. Охватывает сельскохозяйственные, жилые и промышленные участки с подробными картами.',
+					url: 'https://terenuri.md/',
 					images: [
-						{
-							src: 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Обзор сервиса обработки логов',
-						},
-						{
-							src: 'https://images.unsplash.com/photo-1517292987719-0369a794ec0f?auto=format&fit=crop&w=1400&q=80',
-							alt: 'Дашборд метрик производительности',
-						},
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/5.png', alt: 'Список участков Terenuri.md' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/6.png', alt: 'Карта участков Terenuri.md' },
+					],
+				},
+				{
+					title: 'GlobalStore.md — Товары для дома',
+					problem: 'Крупная розничная платформа товаров для дома: посуда, декор, игрушки и бытовая химия — всё необходимое для семьи и дома в одном месте.',
+					url: 'https://globalstore.md/en',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/7.png', alt: 'Главная страница GlobalStore' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/8.png', alt: 'Категории товаров GlobalStore' },
+					],
+				},
+				{
+					title: 'Farmacie.md — Онлайн-аптека',
+					problem: 'Онлайн-платформа аптечной сети Farmacia Familiei. Поиск лекарств, косметики и БАДов, проверка наличия в филиалах и участие в программах лояльности.',
+					url: 'https://farmacie.md/',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/9.png', alt: 'Главная страница Farmacie.md' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/10.png', alt: 'Поиск лекарств Farmacie.md' },
+					],
+				},
+				{
+					title: 'Bizon 360° — CRM-платформа',
+					problem: 'Комплексная CRM-платформа для автоматизации бизнес-процессов и роста продаж. Полная видимость воронки, управление лидами, распределение задач и аналитика в реальном времени.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/11.png', alt: 'Дашборд Bizon 360 CRM' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/12.png', alt: 'Воронка продаж Bizon 360' },
+					],
+				},
+				{
+					title: 'DDWC — Система оценки трудоспособности',
+					problem: 'Государственная информационная система Национального совета по определению ограничений трудоспособности Молдовы. Управление заявками, учёт обращений и ведение личных дел.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/13.png', alt: 'Дашборд системы DDWC' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/14.png', alt: 'Управление делами DDWC' },
+					],
+				},
+				{
+					title: 'ЦИК Молдовы — Избирательный портал',
+					problem: 'Официальный портал Центральной избирательной комиссии Республики Молдова. Обеспечивает прозрачность избирательных процессов и доступ граждан к достоверной информации.',
+					images: [
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/15.png', alt: 'Портал ЦИК Молдовы' },
+						{ src: 'https://raw.githubusercontent.com/xonar21/my-portfolio/main/img-for-projects/16.png', alt: 'Электоральные данные ЦИК' },
+					],
+				},
+				{
+					title: 'MedScheduler — Система записи в клинику',
+					problem: 'Многоролевое Angular-приложение для сети частных клиник. Управление записями к врачам, медкартами и расписанием в реальном времени для пациентов, врачей и администраторов.',
+					images: [
+						{ src: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=80', alt: 'Дашборд медицинского планирования' },
+						{ src: 'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?auto=format&fit=crop&w=1400&q=80', alt: 'Календарь записей клиники' },
+					],
+				},
+				{
+					title: 'LogStream — Сервис обработки событий',
+					problem: 'Высокопроизводительный Go-сервис для потоковой обработки событий и агрегации логов — 50k+ событий в секунду с отказоустойчивой доставкой и маршрутизацией с задержкой менее миллисекунды.',
+					images: [
+						{ src: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=80', alt: 'Серверная инфраструктура' },
+						{ src: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80', alt: 'Мониторинг данных в реальном времени' },
 					],
 				},
 			],
@@ -429,6 +548,29 @@ export const dictionary: Record<Locale, Messages> = {
 			empty: 'Задайте вопрос — расскажу об опыте Jan, технологиях или как мы можем поработать вместе.',
 			error: 'Запрос не прошёл. Повторите.',
 		},
+		pagespeed: {
+			title: 'Производительность',
+			lead: 'Проверено Google PageSpeed Insights',
+			tabMobile: 'Мобильная',
+			tabDesktop: 'Десктоп',
+			labelPerformance: 'Производительность',
+			labelAccessibility: 'Доступность',
+			labelBestPractices: 'Практики',
+			labelSeo: 'SEO',
+			lastChecked: 'Проверено',
+			refresh: 'Обновить',
+			loading: 'Проверяем…',
+			noKey: 'PAGESPEED_API_KEY не настроен.',
+		},
+		visitors: {
+			title: 'Посетители',
+			labelOnline: 'Онлайн сейчас',
+			labelToday: 'Сегодня',
+			labelTotal: 'За всё время',
+			labelRegions: 'Топ регионов',
+			loading: 'Загрузка…',
+			noData: 'Аналитика не настроена.',
+		},
 	},
 };
 
@@ -437,6 +579,6 @@ export function getMessages(locale: Locale): Messages {
 }
 
 export const contactLinks = {
-	telegram: 'https://t.me/janspinu',
-	email: 'mailto:jeanspynu@yandex.ru',
+	telegram: 'https://t.me/jspinu',
+	email: 'mailto:jspynu15@gmail.com',
 } as const;
