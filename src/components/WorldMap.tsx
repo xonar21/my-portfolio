@@ -52,22 +52,39 @@ export default function WorldMap(props: { countries: CountryData[] }) {
 		return interpolateBlue(t);
 	}
 
+	let containerRef: HTMLDivElement | undefined;
+
 	function handleMove(e: MouseEvent, loc: Location) {
 		const count = countMap().get(loc.id) ?? 0;
 		if (count === 0) { setTooltip(null); return; }
-		setTooltip({ name: loc.name, count, x: e.clientX, y: e.clientY });
+		const rect = containerRef!.getBoundingClientRect();
+		setTooltip({
+			name: loc.name,
+			count,
+			x: e.clientX - rect.left,
+			y: e.clientY - rect.top,
+		});
 	}
 
 	function handleTouch(e: TouchEvent, loc: Location) {
 		const count = countMap().get(loc.id) ?? 0;
 		if (count === 0) return;
 		const t = e.touches[0];
-		setTooltip({ name: loc.name, count, x: t.clientX, y: t.clientY });
+		const rect = containerRef!.getBoundingClientRect();
+		setTooltip({
+			name: loc.name,
+			count,
+			x: t.clientX - rect.left,
+			y: t.clientY - rect.top,
+		});
 		setTimeout(() => setTooltip(null), 2000);
 	}
 
 	return (
-		<div class="relative mt-6 w-full select-none overflow-hidden rounded-2xl border border-black/5 bg-white/60 p-4 backdrop-blur-md dark:border-white/10 dark:bg-white/[0.04]">
+		<div
+			ref={(el) => { containerRef = el; }}
+			class="relative mt-6 w-full select-none overflow-visible rounded-2xl border border-black/5 bg-white/60 p-4 dark:border-white/10 dark:bg-white/[0.04]"
+		>
 			<Show
 				when={world()}
 				fallback={
@@ -110,8 +127,8 @@ export default function WorldMap(props: { countries: CountryData[] }) {
 				<Show when={tooltip()}>
 					{(tip) => (
 						<div
-							class="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-full rounded-xl border border-black/5 bg-white px-3 py-2 text-[13px] shadow-lg dark:border-white/10 dark:bg-neutral-900"
-							style={{ left: `${tip().x}px`, top: `${tip().y - 8}px` }}
+							class="pointer-events-none absolute z-50 -translate-x-1/2 -translate-y-full rounded-xl border border-black/5 bg-white px-3 py-2 text-[13px] shadow-lg dark:border-white/10 dark:bg-neutral-900"
+							style={{ left: `${tip().x}px`, top: `${tip().y - 12}px` }}
 						>
 							<span class="font-semibold text-neutral-900 dark:text-neutral-100">
 								{tip().name}
