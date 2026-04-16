@@ -1,4 +1,12 @@
 import { For, Show, createEffect, createSignal, onCleanup } from 'solid-js';
+import {
+	siVuedotjs, siReact, siAngular, siTypescript, siTailwindcss, siVite, siAstro,
+	siGo, siPython, siNodedotjs, siDotnet, siPostgresql, siMongodb,
+	siFigma, siStorybook,
+	siJest, siCypress, siLighthouse,
+	siFastapi, siLangchain,
+	siDocker, siGit, siVercel, siKubernetes,
+} from 'simple-icons';
 
 /** Локальные id категорий — совпадают с ключами подписей из i18n */
 export type CategoryId = 'frontend' | 'backend' | 'uiux' | 'testing' | 'ai' | 'devops';
@@ -178,90 +186,203 @@ function CategoryGlyph(props: { id: CategoryId }) {
 	}
 }
 
+// Brand icons lookup: key → { path, hex } from simple-icons
+const BRAND_ICONS: Record<string, { path: string; hex: string }> = {
+	vue:       siVuedotjs,
+	react:     siReact,
+	angular:   siAngular,
+	ts:        siTypescript,
+	tailwind:  siTailwindcss,
+	vite:      siVite,
+	astro:     siAstro,
+	go:        siGo,
+	python:    siPython,
+	node:      siNodedotjs,
+	dotnet:    siDotnet,
+	postgres:  siPostgresql,
+	mongo:     siMongodb,
+	figma:     siFigma,
+	storybook: siStorybook,
+	jest:      siJest,
+	cypress:   siCypress,
+	lighthouse: siLighthouse,
+	fastapi:   siFastapi,
+	langchain: siLangchain,
+	docker:    siDocker,
+	git:       siGit,
+	vercel:    siVercel,
+	k8s:       siKubernetes,
+};
+
+function hexLuminance(hex: string): number {
+	const r = parseInt(hex.slice(0, 2), 16) / 255;
+	const g = parseInt(hex.slice(2, 4), 16) / 255;
+	const b = parseInt(hex.slice(4, 6), 16) / 255;
+	return 0.299 * r + 0.587 * g + 0.114 * b;
+}
+
 function TechIcon(props: { techKey: string }) {
 	const k = props.techKey.toLowerCase();
-	const box = 'h-9 w-9 shrink-0 text-neutral-600 dark:text-neutral-300';
+	const sz = 'h-9 w-9 shrink-0';
+	const cc = `${sz} text-neutral-600 dark:text-neutral-300`;
 
-	if (k === 'react')
+	// ── brand icons from simple-icons ─────────────────────────────────────
+	const brand = BRAND_ICONS[k];
+	if (brand) {
+		const dark = hexLuminance(brand.hex) < 0.2; // very dark → invert in dark mode
 		return (
-			<svg class={box} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-				<circle cx="12" cy="12" r="2" fill="currentColor" />
-				<ellipse cx="12" cy="12" rx="10" ry="4" stroke="currentColor" stroke-width="1.25" />
-				<ellipse
-					cx="12"
-					cy="12"
-					rx="10"
-					ry="4"
-					stroke="currentColor"
-					stroke-width="1.25"
-					transform="rotate(60 12 12)"
-				/>
-				<ellipse
-					cx="12"
-					cy="12"
-					rx="10"
-					ry="4"
-					stroke="currentColor"
-					stroke-width="1.25"
-					transform="rotate(-60 12 12)"
-				/>
+			<svg
+				viewBox="0 0 24 24"
+				class={`${sz}${dark ? ' fill-neutral-900 dark:fill-neutral-100' : ''}`}
+				style={dark ? {} : { fill: `#${brand.hex}` }}
+				aria-hidden="true"
+			>
+				<path d={brand.path} />
 			</svg>
 		);
-	if (k === 'next')
-		return (
-			<svg class={box} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-				<path d="M11.07 3.27L18 20.73h-2.6l-1.75-4.9H8.45l-1.77 4.9H4.2L11.07 3.27zm.43 8.45L9.2 16.9h4.6l-1.3-3.63-.02-.05-.02.05z" />
-			</svg>
-		);
-	if (k === 'ts')
-		return (
-			<svg class={box} viewBox="0 0 24 24" aria-hidden="true">
-				<rect x="3" y="3" width="18" height="18" rx="4" class="fill-neutral-200 dark:fill-neutral-700" />
-				<text
-					x="12"
-					y="15.5"
-					text-anchor="middle"
-					font-size="8"
-					font-weight="700"
-					class="fill-neutral-800 dark:fill-neutral-100"
-					font-family="system-ui,sans-serif"
-				>
-					TS
-				</text>
-			</svg>
-		);
-	if (k === 'go')
-		return (
-			<svg class={box} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-				<path d="M6.5 11.2c.2-1.4 1-2.6 2.2-3.3-.4 1.1-.5 2.3-.2 3.4l.1.4c.2.7.6 1.3 1.1 1.8.6.5 1.3.8 2.1.9h.5c1.2 0 2.3-.5 3.1-1.4.8-.9 1.2-2.1 1-3.3-.2-1.2-.9-2.3-2-3 .9.8 1.4 2 1.4 3.2 0 2.5-2 4.5-4.5 4.5S6 16.5 6 14c0-1 .4-2 .9-2.8z" />
-			</svg>
-		);
-	if (k === 'python')
-		return (
-			<svg class={box} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-				<path d="M12 2C7.5 2 7 3.8 7 5.5V8h10V5.5C17 3.8 16.5 2 12 2zM7 10v6.5C7 18.2 7.5 20 12 20s5-1.8 5-3.5V10H7z" opacity=".9" />
-			</svg>
-		);
+	}
 
-	return (
-		<svg class={box} viewBox="0 0 24 24" fill="none" aria-hidden="true">
-			<rect
-				x="4"
-				y="4"
-				width="16"
-				height="16"
-				rx="3"
-				stroke="currentColor"
-				stroke-width="1.5"
-			/>
-			<path
-				d="M9 10h6M9 14h4"
-				stroke="currentColor"
-				stroke-width="1.5"
-				stroke-linecap="round"
-			/>
-		</svg>
-	);
+	// ── custom icons for conceptual / brand-less techs ───────────────────
+	switch (k) {
+
+		// gRPC – two boxes connected by bidirectional arrows
+		case 'grpc':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<rect x="2" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5" />
+					<rect x="16" y="9" width="6" height="6" rx="1.5" stroke="currentColor" stroke-width="1.5" />
+					<path d="M8 11h8M8 13h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<path d="M14 10l2 2-2 2M10 10l-2 2 2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			);
+
+		// Playwright – circle with play triangle (browser test runner)
+		case 'playwright':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5" />
+					<path d="M10 8.5l5 3.5-5 3.5V8.5z" fill="currentColor" />
+				</svg>
+			);
+
+		// Design Tokens – four circles linked by connectors
+		case 'design-tokens':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<circle cx="7" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5" />
+					<circle cx="17" cy="7" r="2.5" stroke="currentColor" stroke-width="1.5" />
+					<circle cx="7" cy="17" r="2.5" stroke="currentColor" stroke-width="1.5" />
+					<circle cx="17" cy="17" r="2.5" stroke="currentColor" stroke-width="1.5" />
+					<path d="M9.5 7h5M7 9.5v5M17 9.5v5M9.5 17h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+			);
+
+		// Accessibility – universal access person
+		case 'a11y':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<circle cx="12" cy="4.5" r="2" />
+					<path d="M7.5 9C9.5 8 11 7.5 12 7.5s2.5.5 4.5 1L15 10l-1 8h-1.5l-.5-4h-1l-.5 4H9l-1-8z" />
+				</svg>
+			);
+
+		// Motion UX – sine wave / easing curve
+		case 'motion':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6-2" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			);
+
+		// Contract Tests – document with check
+		case 'contract':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<rect x="5" y="3" width="14" height="18" rx="2" stroke="currentColor" stroke-width="1.5" />
+					<path d="M9 8h6M9 12h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<path d="M8.5 16.5l1.5 1.5 3.5-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			);
+
+		// LLM APIs – brain with connection nodes
+		case 'llm-api':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M12 3C8.5 3 5 5.5 5 9.5c0 1.8.7 3.2 1.8 4.3L6.2 17H9l.5-2h5l.5 2h2.8l-.6-3.2C18.3 12.7 19 11.3 19 9.5 19 5.5 15.5 3 12 3z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" />
+					<path d="M9 21h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<path d="M9.5 10h1.5M13 10h1.5M12 8.5V12" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+				</svg>
+			);
+
+		// Autonomous Agents – robot head with eyes and smile
+		case 'agents':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<rect x="5" y="7" width="14" height="12" rx="3" stroke="currentColor" stroke-width="1.5" />
+					<path d="M9 4v3M15 4v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<circle cx="9.5" cy="13" r="1.25" fill="currentColor" />
+					<circle cx="14.5" cy="13" r="1.25" fill="currentColor" />
+					<path d="M9.5 16.5c.6.6 1.2.8 2.5.8s1.9-.2 2.5-.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+			);
+
+		// RAG – document with magnifying glass (retrieval)
+		case 'rag':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<rect x="3" y="3" width="11" height="14" rx="2" stroke="currentColor" stroke-width="1.5" />
+					<path d="M6 7h5M6 10h5M6 13h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<circle cx="18" cy="17.5" r="3" stroke="currentColor" stroke-width="1.5" />
+					<path d="M20.5 20l1.8 1.8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+			);
+
+		// Embeddings – scattered dots with faint connecting lines (vector space)
+		case 'embeddings':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+					<circle cx="4"  cy="5"  r="1.5" opacity="0.5" />
+					<circle cx="12" cy="3"  r="1.5" />
+					<circle cx="20" cy="7"  r="1.5" opacity="0.7" />
+					<circle cx="6"  cy="12" r="1.5" opacity="0.8" />
+					<circle cx="15" cy="11" r="1.5" />
+					<circle cx="4"  cy="19" r="1.5" opacity="0.6" />
+					<circle cx="13" cy="20" r="1.5" opacity="0.9" />
+					<circle cx="21" cy="17" r="1.5" opacity="0.5" />
+					<path d="M4 5l8-2 8 4M12 3l3 8M6 12l-2 7M15 11l6 6" stroke="currentColor" stroke-width="0.8" opacity="0.3" />
+				</svg>
+			);
+
+		// CI/CD – circular arrows (continuous loop)
+		case 'ci':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M21 12a9 9 0 0 1-14.7 6.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+					<path d="M3 12a9 9 0 0 1 14.7-6.9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="2.5 2" />
+					<path d="M19 8.5l2 3.5h-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+					<path d="M5 15.5l-2-3.5h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			);
+
+		// Observability – eye with gauge lines beneath
+		case 'observability':
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<path d="M2 12s3.5-6.5 10-6.5S22 12 22 12s-3.5 6.5-10 6.5S2 12 2 12z" stroke="currentColor" stroke-width="1.5" />
+					<circle cx="12" cy="12" r="2.75" stroke="currentColor" stroke-width="1.5" />
+					<path d="M8 19.5l1-3M16 19.5l-1-3" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" />
+				</svg>
+			);
+
+		// fallback
+		default:
+			return (
+				<svg class={cc} viewBox="0 0 24 24" fill="none" aria-hidden="true">
+					<rect x="4" y="4" width="16" height="16" rx="3" stroke="currentColor" stroke-width="1.5" />
+					<path d="M9 10h6M9 14h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+				</svg>
+			);
+	}
 }
 
 export default function SkillsShowcase(props: {
