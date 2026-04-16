@@ -105,6 +105,29 @@ export type Messages = {
 		empty: string;
 		error: string;
 	};
+	pagespeed: {
+		title: string;
+		lead: string;
+		tabMobile: string;
+		tabDesktop: string;
+		labelPerformance: string;
+		labelAccessibility: string;
+		labelBestPractices: string;
+		labelSeo: string;
+		lastChecked: string;
+		refresh: string;
+		loading: string;
+		noKey: string;
+	};
+	visitors: {
+		title: string;
+		labelOnline: string;
+		labelToday: string;
+		labelTotal: string;
+		labelRegions: string;
+		loading: string;
+		noData: string;
+	};
 };
 
 export const dictionary: Record<Locale, Messages> = {
@@ -268,6 +291,29 @@ export const dictionary: Record<Locale, Messages> = {
 			empty: 'Ask me anything about Jan\'s experience, tech stack, or how we can work together.',
 			error: 'Request failed. Try again.',
 		},
+		pagespeed: {
+			title: 'Performance',
+			lead: 'Verified by Google PageSpeed Insights',
+			tabMobile: 'Mobile',
+			tabDesktop: 'Desktop',
+			labelPerformance: 'Performance',
+			labelAccessibility: 'Accessibility',
+			labelBestPractices: 'Best Practices',
+			labelSeo: 'SEO',
+			lastChecked: 'Last checked',
+			refresh: 'Refresh',
+			loading: 'Running audit…',
+			noKey: 'PAGESPEED_API_KEY not configured.',
+		},
+		visitors: {
+			title: 'Visitors',
+			labelOnline: 'Online now',
+			labelToday: 'Today',
+			labelTotal: 'All time',
+			labelRegions: 'Top regions',
+			loading: 'Loading…',
+			noData: 'Analytics not configured.',
+		},
 	},
 	ru: {
 		seo: {
@@ -428,6 +474,29 @@ export const dictionary: Record<Locale, Messages> = {
 			send: 'Отправить',
 			empty: 'Задайте вопрос — расскажу об опыте Jan, технологиях или как мы можем поработать вместе.',
 			error: 'Запрос не прошёл. Повторите.',
+		},
+		pagespeed: {
+			title: 'Производительность',
+			lead: 'Проверено Google PageSpeed Insights',
+			tabMobile: 'Мобильная',
+			tabDesktop: 'Десктоп',
+			labelPerformance: 'Производительность',
+			labelAccessibility: 'Доступность',
+			labelBestPractices: 'Практики',
+			labelSeo: 'SEO',
+			lastChecked: 'Проверено',
+			refresh: 'Обновить',
+			loading: 'Проверяем…',
+			noKey: 'PAGESPEED_API_KEY не настроен.',
+		},
+		visitors: {
+			title: 'Посетители',
+			labelOnline: 'Онлайн сейчас',
+			labelToday: 'Сегодня',
+			labelTotal: 'За всё время',
+			labelRegions: 'Топ регионов',
+			loading: 'Загрузка…',
+			noData: 'Аналитика не настроена.',
 		},
 	},
 };

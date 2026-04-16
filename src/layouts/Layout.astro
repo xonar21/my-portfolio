@@ -10,7 +10,9 @@ import Hero from '../components/sections/Hero.astro';
 import About from '../components/sections/About.astro';
 import Skills from '../components/sections/Skills.astro';
 import Projects from '../components/sections/Projects.astro';
+import PageSpeed from '../components/sections/PageSpeed.astro';
 import Contact from '../components/sections/Contact.astro';
+import Visitors from '../components/sections/Visitors.astro';
 import { contactLinks, getMessages, type Locale } from '../i18n/dictionary';
 
 interface Props {
@@ -87,6 +89,24 @@ const alternateHref = locale === 'en' ? '/ru/' : '/en/';
 			/>
 		</RevealOnView>
 		<RevealOnView>
+			<PageSpeed
+				title={m.pagespeed.title}
+				labels={{
+					lead: m.pagespeed.lead,
+					tabMobile: m.pagespeed.tabMobile,
+					tabDesktop: m.pagespeed.tabDesktop,
+					labelPerformance: m.pagespeed.labelPerformance,
+					labelAccessibility: m.pagespeed.labelAccessibility,
+					labelBestPractices: m.pagespeed.labelBestPractices,
+					labelSeo: m.pagespeed.labelSeo,
+					lastChecked: m.pagespeed.lastChecked,
+					refresh: m.pagespeed.refresh,
+					loading: m.pagespeed.loading,
+					noKey: m.pagespeed.noKey,
+				}}
+			/>
+		</RevealOnView>
+		<RevealOnView>
 			<Contact
 				title={m.contact.title}
 				lead={m.contact.lead}
@@ -125,6 +145,19 @@ const alternateHref = locale === 'en' ? '/ru/' : '/en/';
 				emailLabel={m.contact.altEmail}
 				telegramHref={contactLinks.telegram}
 				emailHref={contactLinks.email}
+			/>
+		</RevealOnView>
+		<RevealOnView>
+			<Visitors
+				title={m.visitors.title}
+				labels={{
+					labelOnline: m.visitors.labelOnline,
+					labelToday: m.visitors.labelToday,
+					labelTotal: m.visitors.labelTotal,
+					labelRegions: m.visitors.labelRegions,
+					loading: m.visitors.loading,
+					noData: m.visitors.noData,
+				}}
 			/>
 		</RevealOnView>
 	</main>
