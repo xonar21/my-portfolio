@@ -31,7 +31,7 @@ function ProjectImageSlider(props: {
 	const currentImage = () => props.images[activeImage()];
 
 	return (
-		<div class="mb-6 rounded-2xl border border-black/5 bg-white/80 p-2 dark:border-white/10 dark:bg-white/[0.04]">
+		<div class="mb-6">
 			<div class="relative aspect-[16/10] overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-900">
 				<img
 					src={currentImage().src}
@@ -82,7 +82,6 @@ function ProjectImageSlider(props: {
 					</button>
 				</div>
 			</div>
-			<p class="mt-2 text-[12px] text-neutral-500 dark:text-neutral-400">{props.projectTitle}</p>
 		</div>
 	);
 }

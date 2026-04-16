@@ -280,7 +280,7 @@ export const dictionary: Record<Locale, Messages> = {
 			altEmail: 'Email',
 		},
 		footer: {
-			note: 'Built with Astro, SolidJS, and Tailwind. Engineered for performance and clarity.',
+			note: '',
 		},
 		chat: {
 			open: 'Open assistant',
@@ -464,7 +464,7 @@ export const dictionary: Record<Locale, Messages> = {
 			altEmail: 'Почта',
 		},
 		footer: {
-			note: 'Собрано на Astro, SolidJS и Tailwind. Оптимизировано для производительности и читаемости.',
+			note: '',
 		},
 		chat: {
 			open: 'Открыть ассистента',
