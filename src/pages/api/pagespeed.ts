@@ -1,7 +1,9 @@
 import type { APIRoute } from 'astro';
 
 // Module-level cache — persists for warm serverless instances
-let _cache: { data: unknown; ts: number } | null = null;
+// Bump this version string to invalidate cache after deploys
+const CACHE_VERSION = '2';
+let _cache: { data: unknown; ts: number; v: string } | null = null;
 const CACHE_MS = 12 * 60 * 60 * 1000; // 12 hours
 
 const SITE_URL = 'https://jan-spinu.vercel.app/';
@@ -28,7 +30,7 @@ function extractScores(r: RawResult) {
 }
 
 export const GET: APIRoute = async () => {
-	if (_cache && Date.now() - _cache.ts < CACHE_MS) {
+	if (_cache && _cache.v === CACHE_VERSION && Date.now() - _cache.ts < CACHE_MS) {
 		return new Response(JSON.stringify(_cache.data), {
 			headers: { 'Content-Type': 'application/json', 'X-Cache': 'HIT' },
 		});
@@ -45,7 +47,8 @@ export const GET: APIRoute = async () => {
 		);
 	}
 
-	const base = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(SITE_URL)}&key=${apiKey}`;
+	const categories = 'category=performance&category=accessibility&category=best-practices&category=seo';
+	const base = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(SITE_URL)}&key=${apiKey}&${categories}`;
 
 	try {
 		const [mobileRes, desktopRes] = await Promise.all([
@@ -64,7 +67,7 @@ export const GET: APIRoute = async () => {
 			fetchedAt: new Date().toISOString(),
 		};
 
-		_cache = { data, ts: Date.now() };
+		_cache = { data, ts: Date.now(), v: CACHE_VERSION };
 
 		return new Response(JSON.stringify(data), {
 			headers: { 'Content-Type': 'application/json', 'X-Cache': 'MISS' },
