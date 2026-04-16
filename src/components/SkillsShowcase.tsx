@@ -307,7 +307,7 @@ export default function SkillsShowcase(props: {
 	});
 
 	const cardBase =
-		'skills-hub-card group relative flex w-full flex-col rounded-2xl border border-black/10 bg-white/70 text-left shadow-sm outline-none backdrop-blur-md transition-all duration-500 ease-in-out hover:z-[2] hover:scale-[1.02] hover:border-black/15 hover:shadow-[0_0_0_1px_rgba(0,113,227,0.12),0_12px_40px_-16px_rgba(0,113,227,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3] dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-white/20 dark:hover:shadow-[0_0_0_1px_rgba(41,151,255,0.2),0_16px_48px_-16px_rgba(0,0,0,0.65)] dark:focus-visible:outline-[#2997ff]';
+		'skills-hub-card group relative flex w-full flex-col items-center rounded-2xl border border-black/10 bg-white/70 text-center shadow-sm outline-none backdrop-blur-md transition-all duration-500 ease-in-out hover:z-[2] hover:scale-[1.02] hover:border-black/15 hover:shadow-[0_0_0_1px_rgba(0,113,227,0.12),0_12px_40px_-16px_rgba(0,113,227,0.18)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#0071e3] dark:border-white/10 dark:bg-white/[0.06] dark:hover:border-white/20 dark:hover:shadow-[0_0_0_1px_rgba(41,151,255,0.2),0_16px_48px_-16px_rgba(0,0,0,0.65)] dark:focus-visible:outline-[#2997ff]';
 
 	return (
 		<div
@@ -339,7 +339,7 @@ export default function SkillsShowcase(props: {
 							aria-controls={`skills-hub-panel-${id}`}
 							onClick={() => toggle(id)}
 						>
-							<div class="flex flex-col items-center gap-4 text-center">
+							<div class="flex w-full flex-col items-center gap-4 text-center">
 								<div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-neutral-100/90 dark:bg-white/10">
 									<CategoryGlyph id={id} />
 								</div>
