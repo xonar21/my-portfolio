@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.62",
+    "@astrojs/sitemap": "^3.7.2",
     "@astrojs/solid-js": "^6.0.1",
     "@astrojs/vercel": "^10.0.4",
     "@svg-maps/world": "^2.0.0",
