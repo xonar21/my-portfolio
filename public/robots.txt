@@ -3,4 +3,4 @@ Allow: /
 
 Crawl-delay: 1
 
-Sitemap: https://jan-spinu.vercel.app/sitemap-index.xml
+Sitemap: https://jan-spinu.vercel.app/site-map.xml
