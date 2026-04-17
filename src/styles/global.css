@@ -96,10 +96,6 @@
   filter: blur(48px) brightness(0.92);
 }
 
-.hero-mesh__drift--a {
-  display: none;
-}
-
 .hero-mesh__canvas {
   position: absolute;
   inset: 0;
@@ -462,8 +458,8 @@
 }
 
 .reveal-ov {
-  opacity: 1;
-  transform: none;
+  opacity: 0;
+  transform: translateY(24px);
   --reveal-delay: 0ms;
   transition:
     opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay),

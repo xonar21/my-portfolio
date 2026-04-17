@@ -1,6 +1,7 @@
 ---
-/* Одноразовая инициализация появления блоков + повтор при View Transitions */
 ---
+
+<noscript><style>.reveal-ov{opacity:1!important;transform:none!important}</style></noscript>
 
 <script is:inline>
 	(function () {
@@ -11,6 +12,12 @@
 			if (el.dataset.revealBound) return;
 			el.dataset.revealBound = '1';
 			if (reducedMotion()) {
+				el.classList.add('reveal-ov--in');
+				return;
+			}
+			// Reveal synchronously if already above the fold
+			var rect = el.getBoundingClientRect();
+			if (rect.top < window.innerHeight * 0.92) {
 				el.classList.add('reveal-ov--in');
 				return;
 			}

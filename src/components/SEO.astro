@@ -33,7 +33,7 @@ const {
 
 const siteRaw = import.meta.env.PUBLIC_SITE_URL;
 const site = (typeof siteRaw === 'string' ? siteRaw : '').replace(/\/$/, '') || null;
-const fallbackSite = import.meta.env.DEV ? 'http://localhost:4321' : 'https://example.com';
+const fallbackSite = import.meta.env.DEV ? 'http://localhost:4321' : 'https://jan-spinu.vercel.app';
 const origin = site ?? fallbackSite;
 
 const pathSuffix = path === '/' ? '/' : path.startsWith('/') ? path : `/${path}`;

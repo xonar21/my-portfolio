@@ -6,7 +6,10 @@ const CACHE_VERSION = '2';
 let _cache: { data: unknown; ts: number; v: string } | null = null;
 const CACHE_MS = 12 * 60 * 60 * 1000; // 12 hours
 
-const SITE_URL = 'https://jan-spinu.vercel.app/';
+const SITE_URL =
+	(import.meta.env.PUBLIC_SITE_URL as string | undefined) ??
+	process.env.PUBLIC_SITE_URL ??
+	'https://jan-spinu.vercel.app/';
 
 type RawResult = {
 	lighthouseResult?: {

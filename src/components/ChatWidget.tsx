@@ -1,5 +1,7 @@
 import { For, createSignal } from 'solid-js';
 
+const MAX_MESSAGES = 20;
+
 type Msg = { role: 'user' | 'assistant'; content: string };
 
 export default function ChatWidget(props: {
@@ -26,7 +28,7 @@ export default function ChatWidget(props: {
 		setErr(false);
 		setErrDetail(null);
 		const nextUser: Msg = { role: 'user', content: text };
-		const thread: Msg[] = [...messages(), nextUser];
+		const thread: Msg[] = [...messages(), nextUser].slice(-MAX_MESSAGES);
 		setMessages(thread);
 		setInput('');
 		setLoading(true);

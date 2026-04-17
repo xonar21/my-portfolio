@@ -316,7 +316,7 @@ export const dictionary: Record<Locale, Messages> = {
 			altEmail: 'Email',
 		},
 		footer: {
-			note: '',
+			note: '© 2025 Jan Spinu · Anonymous analytics: visit counts only, no cookies or personal data.',
 		},
 		chat: {
 			open: 'Open assistant',
@@ -537,7 +537,7 @@ export const dictionary: Record<Locale, Messages> = {
 			altEmail: 'Почта',
 		},
 		footer: {
-			note: '',
+			note: '© 2025 Ян Спину · Анонимная аналитика: только счётчики посещений, без cookie и персональных данных.',
 		},
 		chat: {
 			open: 'Открыть ассистента',

@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout lang="en">
+  <Fragment slot="head">
+    <title>404 — Page Not Found · Jan Spinu</title>
+    <meta name="description" content="The page you're looking for doesn't exist." />
+    <meta name="robots" content="noindex" />
+  </Fragment>
+  <main class="flex min-h-dvh flex-col items-center justify-center px-6 text-center">
+    <p class="mb-4 text-[13px] font-medium uppercase tracking-[0.14em] text-neutral-400">
+      404
+    </p>
+    <h1 class="text-balance text-[clamp(1.75rem,4vw,2.75rem)] font-semibold tracking-tight text-neutral-950 dark:text-neutral-100">
+      Page not found
+    </h1>
+    <p class="mt-4 max-w-sm text-[17px] leading-relaxed text-neutral-500">
+      This page doesn't exist or has been moved.
+    </p>
+    <div class="mt-10 flex flex-wrap justify-center gap-4">
+      <a
+        href="/en/"
+        class="inline-flex items-center justify-center rounded-full bg-[#0071e3] px-7 py-3 text-[15px] font-medium text-white shadow-md shadow-[#0071e3]/22 transition-[background-color,box-shadow] duration-300 ease-out hover:bg-[#0077ed] hover:shadow-lg hover:shadow-[#0071e3]/18 dark:bg-[#2997ff] dark:shadow-[#2997ff]/18 dark:hover:bg-[#42a4ff]"
+      >
+        Go home
+      </a>
+      <a
+        href="/ru/"
+        class="inline-flex items-center justify-center rounded-full border border-black/10 bg-white/80 px-7 py-3 text-[15px] font-medium text-neutral-900 backdrop-blur-md transition-[background-color,box-shadow] duration-300 hover:bg-white hover:shadow-lg hover:shadow-black/[0.08] dark:border-white/15 dark:bg-white/10 dark:text-white dark:hover:bg-white/15"
+      >
+        На главную (RU)
+      </a>
+    </div>
+  </main>
+</BaseLayout>

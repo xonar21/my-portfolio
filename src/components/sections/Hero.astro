@@ -49,6 +49,9 @@ const { kicker, headline, subline, photoAlt, photoSrc, ctaProjects, ctaContact }
               src={photoSrc}
               alt={photoAlt}
               class="absolute inset-0 h-full w-full object-cover object-top"
+              loading="eager"
+              fetchpriority="high"
+              decoding="sync"
             />
           ) : (
             <div

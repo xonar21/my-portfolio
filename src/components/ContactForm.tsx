@@ -51,7 +51,7 @@ export default function ContactForm(props: {
 
 	const isInvalidName = () => attemptedSubmit() && name().trim().length === 0;
 	const isInvalidEmail = () =>
-		attemptedSubmit() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email().trim());
+		attemptedSubmit() && !/^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/.test(email().trim());
 	const isInvalidTimeline = () => attemptedSubmit() && timeline().trim().length === 0;
 	const isInvalidBudget = () => attemptedSubmit() && budget().trim().length === 0;
 	const isInvalidMessage = () => attemptedSubmit() && message().trim().length === 0;
