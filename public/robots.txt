@@ -1,15 +1,6 @@
-# Robots.txt for jan-spinu.vercel.app
-# Generated for Sitemap Protocol 0.9 compliance (2026)
-
 User-agent: *
 Allow: /
-Allow: /en/
-Allow: /ru/
-Disallow: /api/
-Disallow: /*.ts
-Disallow: /*.tsx
-Disallow: /*?*
+
 Crawl-delay: 1
 
-# Sitemaps
 Sitemap: https://jan-spinu.vercel.app/sitemap.xml

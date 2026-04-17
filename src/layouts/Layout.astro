@@ -22,6 +22,9 @@ interface Props {
 const { locale } = Astro.props;
 const m = getMessages(locale);
 const alternateHref = locale === 'en' ? '/ru/' : '/en/';
+
+// Exclude scripts and interactive widgets from sitemap generation
+const isSitemapRoute = Astro.url.pathname.includes('sitemap');
 ---
 
 <BaseLayout lang={locale}>
@@ -163,16 +166,18 @@ const alternateHref = locale === 'en' ? '/ru/' : '/en/';
 		</RevealOnView>
 	</main>
 	<Footer note={m.footer.note} />
-	<ChatWidget
-		client:load
-		labels={{
-			open: m.chat.open,
-			close: m.chat.close,
-			title: m.chat.title,
-			placeholder: m.chat.placeholder,
-			send: m.chat.send,
-			empty: m.chat.empty,
-			error: m.chat.error,
-		}}
-	/>
+	{!isSitemapRoute && (
+		<ChatWidget
+			client:load
+			labels={{
+				open: m.chat.open,
+				close: m.chat.close,
+				title: m.chat.title,
+				placeholder: m.chat.placeholder,
+				send: m.chat.send,
+				empty: m.chat.empty,
+				error: m.chat.error,
+			}}
+		/>
+	)}
 </BaseLayout>
