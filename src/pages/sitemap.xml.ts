@@ -13,8 +13,7 @@ interface URLEntry {
 const generateSitemap = (urls: URLEntry[]): string => {
   const urlEntries = urls
     .map(
-      (url) => `
-  <url>
+      (url) => `  <url>
     <loc>${url.loc}</loc>
     <lastmod>${url.lastmod}</lastmod>
     <changefreq>${url.changefreq}</changefreq>
