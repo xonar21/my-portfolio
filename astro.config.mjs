@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 import solidJs from '@astrojs/solid-js';
+import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import vercel from '@astrojs/vercel';
 import node from '@astrojs/node';
@@ -11,10 +12,24 @@ const useVercel = process.env.VERCEL === '1';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://jan-spinu.vercel.app/',
+  site: 'https://jan-spinu.vercel.app',
   output: 'server',
   adapter: useVercel ? vercel() : node({ mode: 'standalone' }),
-  integrations: [solidJs()],
+  integrations: [
+    solidJs(),
+    sitemap({
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          ru: 'ru-RU',
+        },
+      },
+      changefreq: 'monthly',
+      priority: 0.9,
+      lastmod: new Date(),
+    }),
+  ],
   trailingSlash: 'always',
 
   vite: {
