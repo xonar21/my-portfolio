@@ -1,6 +1,25 @@
 import { For, createSignal } from 'solid-js';
+import SuggestionBubbles from './SuggestionBubbles';
 
 const MAX_MESSAGES = 20;
+
+const SUGGESTIONS = [
+	{
+		label: '💼 Experience',
+		prompt:
+			'Tell me about your experience as a Senior Full-Stack Engineer and the impact you made at companies like AlsoDev and Indrivo.',
+	},
+	{
+		label: '🚀 Tech Stack',
+		prompt:
+			'What is your core tech stack, and how do you leverage AI and LLMs in your development workflow to increase efficiency?',
+	},
+	{
+		label: '🤝 Hire/Contact',
+		prompt:
+			'Are you currently open to new senior roles or consulting opportunities? How can I get in touch with you directly?',
+	},
+];
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 
@@ -63,6 +82,10 @@ export default function ChatWidget(props: {
 		}
 	}
 
+	function handleSuggest(prompt: string) {
+		setInput(prompt);
+	}
+
 	return (
 		<div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
 			{open() ? (
@@ -85,9 +108,12 @@ export default function ChatWidget(props: {
 					</div>
 					<div class="max-h-64 space-y-3 overflow-y-auto px-4 py-3">
 						{messages().length === 0 ? (
-							<p class="text-[13px] leading-relaxed text-neutral-500 dark:text-neutral-500">
-								{props.labels.empty}
-							</p>
+							<div class="space-y-3">
+								<p class="text-[13px] leading-relaxed text-neutral-500 dark:text-neutral-500">
+									{props.labels.empty}
+								</p>
+								<SuggestionBubbles suggestions={SUGGESTIONS} onSuggest={handleSuggest} disabled={() => loading()} />
+							</div>
 						) : (
 							<For each={messages()}>
 								{(m) => (
